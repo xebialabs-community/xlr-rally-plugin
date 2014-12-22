@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+    THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS
+    FOR A PARTICULAR PURPOSE. THIS CODE AND INFORMATION ARE NOT SUPPORTED BY XEBIALABS.
+
+-->
+<synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<type type="rally.Query" extends="xlrelease.PythonScript">
+        <property name="scriptLocation" default="rally/Query.py" hidden="true" />
+        <property name="iconLocation" default="rally/rally.png" hidden="true" />
+
+        <property name="rallyServer" category="input" label="Server" referenced-type="rally.Server" kind="ci"/>
+        <property name="username" category="input" label="username" required="true" />
+        <property name="password" password="true" category="input" required="true" />
+
+        <property name="query" category="input" label="Query" required="true" />
+        <property name="jsonExpression" category="input" label="Json Expression" required="true" />
+
+        <property name="queryResult" category="output"/> 
+    </type>
+
+<type type="rally.UpdateStatus" extends="xlrelease.PythonScript">
+        <property name="scriptLocation" default="rally/UpdateStatus.py" hidden="true" />
+        <property name="iconLocation" default="rally/rally.png" hidden="true" />
+
+        <property name="rallyServer" category="input" label="Server" referenced-type="rally.Server" kind="ci"/>
+        <property name="username" category="input" label="username" required="true" />
+        <property name="password" password="true" category="input" required="true" />
+
+        <property name="formattedID" category="input" label="Formatted id" required="true" />
+        <property name="oAuthKey" category="input" label="OAuth Key" required="true" />
+        <property name="environment" category="input" label="Environment" required="true" />
+        
+
+        <property name="rallyResult" category="output"/> 
+    </type>
+
+    
+
+	<type type="rally.Server" extends="configuration.HttpConnection"/>
+</synthetic>
