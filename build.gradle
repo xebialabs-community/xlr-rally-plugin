@@ -3,6 +3,7 @@ buildscript {
     jcenter()
   }
   dependencies {
+
     classpath "nl.javadude.gradle.plugins:license-gradle-plugin:0.11.0"
   }
 }
@@ -11,6 +12,11 @@ version="1.0.0"
 
 apply plugin: "com.github.hierynomus.license"
 apply plugin: 'java'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+}
 
 dependencies {
     compile "com.rallydev.rest:rally-rest-api:2.1.1"

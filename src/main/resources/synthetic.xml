@@ -22,7 +22,7 @@
         <property name="queryResult" category="output"/> 
     </type>
 
-<type type="rally.UpdateStatus" extends="xlrelease.PythonScript">
+    <type type="rally.UpdateProperties" extends="xlrelease.PythonScript">
         <property name="scriptLocation" default="rally/UpdateStatus.py" hidden="true" />
         <property name="iconLocation" default="rally/rally.png" hidden="true" />
 
@@ -32,13 +32,14 @@
 
         <property name="formattedID" category="input" label="Formatted id" required="true" />
         <property name="oAuthKey" category="input" label="OAuth Key" required="true" />
-        <property name="environment" category="input" label="Environment" required="true" />
+        <property name="properties" category="input" label="Properties" required="true" description="Dictionary style properties that need to be updated."/>
+        <property name="workspace" category="input" label="Workspace" required="true" />
+        <property name="rally_type" category="input" label="Type" required="true" description="defect, hierarchicalrequirement, .."/>
         
 
         <property name="rallyResult" category="output"/> 
     </type>
 
-    
 
 	<type type="rally.Server" extends="configuration.HttpConnection"/>
 </synthetic>

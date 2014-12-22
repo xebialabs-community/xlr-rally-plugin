@@ -3,3 +3,13 @@ notifications:
   hipchat:
     rooms:
       secure: heRjw4ntplj7zbOUC/C3TTtJuvtbXHyvi3KMrKt49zW2FSBZyBGBfDyWdqaOCBIZYb6K0Mk3ryp2BxMwGF2ST5sSX2Vi8D4ms14g6FSf2rwED1ijbI2ZEhy/E8iY+g8MOYkoMW/7MXgUr9lWL/k4mPepnTdbGuYhdyOt7A5mWe4=
+deploy:
+  provider: releases
+  api_key:
+    secure: LBk36REIF1lkigCPZltnKli/vioCtCsY0iOeWYWJIDYr1nPyKku/G6xEusmVkvsFncJKZ9JBvzr4LcwwRboLBD23tT3axYCfADenZBwdgpt4l2jEspesc5BX7WhLId1Gv25Ldi9Vca7Cu4Y2CY9UU7P/TLDyGtakiggzXX8Zw60=
+  file: build/libs/xlr-rally-plugin-1.0.0.jar
+  skip_cleanup: true
+  on:
+    all_branches: true
+    tags: true
+    repo: xebialabs-community/xlr-rally-plugin
