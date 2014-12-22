@@ -12,6 +12,10 @@ version="1.0.0"
 apply plugin: "com.github.hierynomus.license"
 apply plugin: 'java'
 
+dependencies {
+    compile "com.rallydev.rest:rally-rest-api:2.1.1"
+}
+
 license {
     header rootProject.file('src/main/license/xebialabs_community.license')
     strictCheck true

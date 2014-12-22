@@ -5,7 +5,6 @@
 #
 
 import sys, string, time
-import com.xhaus.jyson.JysonCodec as json
 from java.net import URI
 from com.rallydev.rest import RallyRestApi
 from com.rallydev.rest.request import UpdateRequest
