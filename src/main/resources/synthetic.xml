@@ -8,21 +8,7 @@
 -->
 <synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-	<type type="rally.Query" extends="xlrelease.PythonScript">
-        <property name="scriptLocation" default="rally/Query.py" hidden="true" />
-        <property name="iconLocation" default="rally/rally.png" hidden="true" />
-
-        <property name="rallyServer" category="input" label="Server" referenced-type="rally.Server" kind="ci"/>
-        <property name="username" category="input" label="username" required="true" />
-        <property name="password" password="true" category="input" required="true" />
-
-        <property name="query" category="input" label="Query" required="true" />
-        <property name="jsonExpression" category="input" label="Json Expression" required="true" />
-
-        <property name="queryResult" category="output"/> 
-    </type>
-
-    <type type="rally.UpdateProperties" extends="xlrelease.PythonScript">
+	<type type="rally.UpdateProperties" extends="xlrelease.PythonScript">
         <property name="scriptLocation" default="rally/UpdateStatus.py" hidden="true" />
         <property name="iconLocation" default="rally/rally.png" hidden="true" />
 
