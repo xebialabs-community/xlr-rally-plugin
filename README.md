@@ -30,7 +30,7 @@ First, you need to add an entry in the [Configuration](https://docs.xebialabs.co
 
 ![Configuration](/rallyCI.png)
 
-The next step is to add the required task [#Types] to your release template, for example:
+The next step is to add the required task [Types](#Types) to your release template, for example:
 
 ![Configuration](/updateStatusTask.png)
 
