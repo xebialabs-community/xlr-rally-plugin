@@ -28,11 +28,11 @@ The xlr-rally-plugin is a XL Release plugin that allows to integrate XL Release 
 
 First, you need to add an entry in the [Configuration](https://docs.xebialabs.com/xl-release/how-to/create-custom-configuration-types-in-xl-release.html#configuration-page) section with information on how to connect to your Rally instance:
 
-![Configuration](/rallyCI.png)
+![Configuration](images/rallyCI.png)
 
 The next step is to add the required task [Types](#Types) to your release template, for example:
 
-![Configuration](/updateStatusTask.png)
+![Configuration](images/updateStatusTask.png)
 
 Note, properties are defined in the following format
 
@@ -40,4 +40,4 @@ Note, properties are defined in the following format
 
 In the example above the Task TA3 has been updated with a new description and it's state has been progressed.
 
-![Execution](/rallyResult.png)
+![Execution](images/rallyResult.png)
