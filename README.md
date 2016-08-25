@@ -2,7 +2,24 @@
 
 This document describes the functionality provided by the xlr-rally-plugin.
 
-See the **XL Release Reference Manual** for background information on XL Release and release concepts.
+See the **[XL Release Documentation](https://docs.xebialabs.com/xl-release/index.html)** for background information on XL Release and release concepts.
+
+
+# CI status #
+
+[![Build Status][xlr-rally-travis-image] ][xlr-rally-travis-url]
+[![Build Status][xlr-rally-codacy-image] ][xlr-rally-codacy-url]
+[![Build Status][xlr-rally-code-climate-image] ][xlr-rally-code-climate-url]
+
+
+[xlr-rally-travis-image]: https://travis-ci.org/xebialabs-community/xlr-rally-plugin.svg?branch=master
+[xlr-rally-travis-url]: https://travis-ci.org/xebialabs-community/xlr-rally-plugin
+[xlr-rally-codacy-image]: https://api.codacy.com/project/badge/Grade/b74aca3c5da7483193ceef88bc93ec44
+[xlr-rally-codacy-url]: https://www.codacy.com/app/rvanstone/xlr-rally-plugin
+[xlr-rally-code-climate-image]: https://codeclimate.com/github/xebialabs-community/xlr-rally-plugin/badges/gpa.svg
+[xlr-rally-code-climate-url]: https://codeclimate.com/github/xebialabs-community/xlr-rally-plugin
+
+
 
 # Overview #
 
