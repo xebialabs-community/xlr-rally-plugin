@@ -58,3 +58,26 @@ Note, properties are defined in the following format
 In the example above the Task TA3 has been updated with a new description and it's state has been progressed.
 
 ![Execution](images/rallyResult.png)
+
+### Rally object reference ###
+##### Defect #####
+* code: DE
+* default state progression: Submitted, Open, Fixed, Closed
+
+##### Defect Suite #####
+* code: DS
+
+##### Iteration #####
+* default state progression: Planning, Committed, Accepted 
+
+##### Task #####
+* code: TA
+* default state progression: Defined, In-Progress, Completed
+
+##### Test Case
+* code: TC 
+
+##### User Story #####
+* code: US
+
+
