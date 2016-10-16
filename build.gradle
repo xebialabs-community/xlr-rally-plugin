@@ -3,7 +3,7 @@ plugins {
     id "com.xebialabs.xlr.docker" version "1.1.12"
 }
 
-version="1.1.1" 
+version="1.1.2" 
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    compile "com.rallydev.rest:rally-rest-api:2.1.1"
+    compile "com.rallydev.rest:rally-rest-api:2.2.1"
 }
 
 license {
