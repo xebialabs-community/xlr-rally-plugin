@@ -4,45 +4,14 @@
 # FOR A PARTICULAR PURPOSE. THIS CODE AND INFORMATION ARE NOT SUPPORTED BY XEBIALABS.
 #
 
-import sys, string, time
 import ast
-from java.net import URI
+from com.google.gson import JsonObject
 from com.rallydev.rest import RallyRestApi
-from com.rallydev.rest.request import CreateRequest, QueryRequest
-from com.rallydev.rest.util import Fetch, QueryFilter
-from com.google.gson import JsonObject, JsonParser, JsonArray
+from com.rallydev.rest.request import CreateRequest
 
-def lookup_workspace_id_by_workspace_name(restApi, workspaceName):
-    request = QueryRequest("Workspace")
-    request.setQueryFilter(QueryFilter("Name", "=", workspaceName))
-    request.setFetch(Fetch(["ObjectId"]))
+from rally.RallyClientUtil import Rally_Client_Util
 
-    workspaceQueryResponse = restApi.query(request)
-    if workspaceQueryResponse.wasSuccessful():
-        result = workspaceQueryResponse.getResults()
-        parser = JsonParser()
-        object = (parser.parse(result.toString())).get(0).getAsJsonObject()
-        return object.get("ObjectID").getAsString()
-
-def lookup_user_story_by_formatted_id(restApi, type, formattedId, workspace):
-    request = QueryRequest(type)
-    request.setWorkspace(workspace)
-    request.setScopedDown(True)
-    request.setScopedUp(False)
-    request.setFetch(Fetch(["ObjectID"]))
-    request.setQueryFilter(QueryFilter("FormattedID", "=", formattedId))
-    queryResponse = restApi.query(request);
-
-    if queryResponse.wasSuccessful():
-        print("Total results: %d\n" % queryResponse.getTotalResultCount())
-        for result in queryResponse.getResults():
-            story = result.getAsJsonObject()
-            return story.get("_ref").getAsString()
-    else:
-        print("The following errors occurred: ");
-        for err in queryResponse.getErrors():
-            print("\t" + err);
-        return None
+rallyClient = Rally_Client_Util.create_rally_client()
 
 if rallyServer is None:
     print "No server provided."
@@ -62,9 +31,9 @@ if oAuthKey:
 else:
     restApi = RallyRestApi(URI(rallyUrl), credentials['username'], credentials['password'])
 
-workspaceRef = lookup_workspace_id_by_workspace_name(restApi, workspace)
+workspaceRef = rallyClient.lookup_workspace_id_by_workspace_name(restApi, workspace)
 
-storyRef = lookup_user_story_by_formatted_id(restApi, "HierarchicalRequirement", userStoryFormattedId, workspaceRef)
+storyRef = rallyClient.lookup_user_story_by_formatted_id(restApi, "HierarchicalRequirement", userStoryFormattedId, workspaceRef)
 
 newDefect = JsonObject()
 propertyDict = dict(ast.literal_eval(properties))
