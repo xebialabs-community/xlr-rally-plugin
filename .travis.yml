@@ -7,7 +7,7 @@ deploy:
   provider: releases
   api_key:
     secure: LBk36REIF1lkigCPZltnKli/vioCtCsY0iOeWYWJIDYr1nPyKku/G6xEusmVkvsFncJKZ9JBvzr4LcwwRboLBD23tT3axYCfADenZBwdgpt4l2jEspesc5BX7WhLId1Gv25Ldi9Vca7Cu4Y2CY9UU7P/TLDyGtakiggzXX8Zw60=
-  file: build/libs/xlr-rally-plugin-1.0.0.jar
+  file: build/libs/xlr-rally-plugin-1.1.1.jar
   skip_cleanup: true
   on:
     all_branches: true
