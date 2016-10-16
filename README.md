@@ -39,6 +39,8 @@ The xlr-rally-plugin is a XL Release plugin that allows to integrate XL Release 
 
 # Types #
 
++ CreateDefect
++ CreateTask
 + UpdateProperties
 
 # Usage #

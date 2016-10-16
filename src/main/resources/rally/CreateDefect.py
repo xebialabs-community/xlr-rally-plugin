@@ -66,29 +66,29 @@ workspaceRef = lookup_workspace_id_by_workspace_name(restApi, workspace)
 
 storyRef = lookup_user_story_by_formatted_id(restApi, "HierarchicalRequirement", userStoryFormattedId, workspaceRef)
 
-newTask = JsonObject()
+newDefect = JsonObject()
 propertyDict = dict(ast.literal_eval(properties))
 for key, value in propertyDict.iteritems():
-    newTask.addProperty(key, value);
-newTask.addProperty("WorkProduct", storyRef);
+    newDefect.addProperty(key, value);
+newDefect.addProperty("Requirement", storyRef);
 
-taskCreateRequest = CreateRequest("task", newTask);
-taskCreateResponse = restApi.create(taskCreateRequest);
+defectCreateRequest = CreateRequest("defect", newDefect);
+defectCreateResponse = restApi.create(defectCreateRequest);
 
-rallyResult = taskCreateResponse.wasSuccessful()
-print "Create task result: %s\n" % rallyResult
+rallyResult = defectCreateResponse.wasSuccessful()
+print "Create defect result: %s\n" % rallyResult
 
-errors = taskCreateResponse.getErrors()
+errors = defectCreateResponse.getErrors()
 for error in errors:
     print "Received error: %s\n" % error
 
-warnings = taskCreateResponse.getWarnings()
+warnings = defectCreateResponse.getWarnings()
 for warning in warnings:
     print "Received warning: %s\n" % warning
 
 if rallyResult:
     print "Executed successful on Rally"
-    formattedId = taskCreateResponse.getObject().get('FormattedID').getAsString()
+    formattedId = defectCreateResponse.getObject().get('FormattedID').getAsString()
 else:
     print "Failed to create record in Rally"
     sys.exit(1)
