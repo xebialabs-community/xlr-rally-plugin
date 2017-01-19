@@ -9,9 +9,9 @@ from com.google.gson import JsonObject
 from com.rallydev.rest import RallyRestApi
 from com.rallydev.rest.request import CreateRequest
 
-from rally.RallyClientUtil import Rally_Client_Util
+from rally.RallyClientUtil import RallyClientUtil
 
-rallyClient = Rally_Client_Util.create_rally_client()
+rallyClient = RallyClientUtil.create_rally_client()
 
 if rallyServer is None:
     print "No server provided."
@@ -27,7 +27,7 @@ credentials = CredentialsFallback(rallyServer, username, password).getCredential
 
 restApi = None
 if oAuthKey:
-    restApi = RallyRestApi(URI(rallyUrl), oAuthKey);
+    restApi = RallyRestApi(URI(rallyUrl), oAuthKey)
 else:
     restApi = RallyRestApi(URI(rallyUrl), credentials['username'], credentials['password'])
 
@@ -38,11 +38,11 @@ storyRef = rallyClient.lookup_user_story_by_formatted_id(restApi, "HierarchicalR
 newDefect = JsonObject()
 propertyDict = dict(ast.literal_eval(properties))
 for key, value in propertyDict.iteritems():
-    newDefect.addProperty(key, value);
-newDefect.addProperty("Requirement", storyRef);
+    newDefect.addProperty(key, value)
+newDefect.addProperty("Requirement", storyRef)
 
-defectCreateRequest = CreateRequest("defect", newDefect);
-defectCreateResponse = restApi.create(defectCreateRequest);
+defectCreateRequest = CreateRequest("defect", newDefect)
+defectCreateResponse = restApi.create(defectCreateRequest)
 
 rallyResult = defectCreateResponse.wasSuccessful()
 print "Create defect result: %s\n" % rallyResult

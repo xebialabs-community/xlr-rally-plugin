@@ -9,9 +9,9 @@ from com.google.gson import JsonObject
 from com.rallydev.rest import RallyRestApi
 from com.rallydev.rest.request import UpdateRequest
 
-from rally.RallyClientUtil import Rally_Client_Util
+from rally.RallyClientUtil import RallyClientUtil
 
-rallyClient = Rally_Client_Util.create_rally_client()
+rallyClient = RallyClientUtil.create_rally_client()
 
 if rallyServer is None:
     print "No server provided."
@@ -27,19 +27,19 @@ credentials = CredentialsFallback(rallyServer, username, password).getCredential
 
 restApi = None
 if oAuthKey:
-    restApi = RallyRestApi(URI(rallyUrl), oAuthKey);
+    restApi = RallyRestApi(URI(rallyUrl), oAuthKey)
 else:
     restApi = RallyRestApi(URI(rallyUrl), credentials['username'], credentials['password'])
 
-content = JsonObject();
+content = JsonObject()
 propertyDict = dict(ast.literal_eval(properties))
 for key, value in propertyDict.iteritems():
-    content.addProperty(key, value);
+    content.addProperty(key, value)
 
 workspace_ref = rallyClient.lookup_workspace_id_by_workspace_name(restApi, workspace)
 objectId = rallyClient.lookup_user_story_by_formatted_id(restApi, rally_type, formattedID, workspace_ref)
 
-updateRequest = UpdateRequest("/%s/%s" % (rally_type,objectId), content);
+updateRequest = UpdateRequest("/%s/%s" % (rally_type,objectId), content)
 updateResponse = restApi.update(updateRequest)
 
 rallyResult = updateResponse.wasSuccessful()

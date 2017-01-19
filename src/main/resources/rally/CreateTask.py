@@ -9,9 +9,9 @@ from com.google.gson import JsonObject
 from com.rallydev.rest import RallyRestApi
 from com.rallydev.rest.request import CreateRequest
 
-from rally.RallyClientUtil import Rally_Client_Util
+from rally.RallyClientUtil import RallyClientUtil
 
-rallyClient = Rally_Client_Util.create_rally_client()
+rallyClient = RallyClientUtil.create_rally_client()
 
 if rallyServer is None:
     print "No server provided."
@@ -27,7 +27,7 @@ credentials = CredentialsFallback(rallyServer, username, password).getCredential
 
 restApi = None
 if oAuthKey:
-    restApi = RallyRestApi(URI(rallyUrl), oAuthKey);
+    restApi = RallyRestApi(URI(rallyUrl), oAuthKey)
 else:
     restApi = RallyRestApi(URI(rallyUrl), credentials['username'], credentials['password'])
 
@@ -38,11 +38,11 @@ storyRef = rallyClient.lookup_user_story_by_formatted_id(restApi, "HierarchicalR
 newTask = JsonObject()
 propertyDict = dict(ast.literal_eval(properties))
 for key, value in propertyDict.iteritems():
-    newTask.addProperty(key, value);
-newTask.addProperty("WorkProduct", storyRef);
+    newTask.addProperty(key, value)
+newTask.addProperty("WorkProduct", storyRef)
 
-taskCreateRequest = CreateRequest("task", newTask);
-taskCreateResponse = restApi.create(taskCreateRequest);
+taskCreateRequest = CreateRequest("task", newTask)
+taskCreateResponse = restApi.create(taskCreateRequest)
 
 rallyResult = taskCreateResponse.wasSuccessful()
 print "Create task result: %s\n" % rallyResult

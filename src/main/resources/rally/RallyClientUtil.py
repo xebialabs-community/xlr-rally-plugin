@@ -4,11 +4,11 @@
 # FOR A PARTICULAR PURPOSE. THIS CODE AND INFORMATION ARE NOT SUPPORTED BY XEBIALABS.
 #
 
-from rally.RallyClient import Rally_Client
+from rally.RallyClient import RallyClient
 
-class Rally_Client_Util(object):
+class RallyClientUtil(object):
 
     @staticmethod
     def create_rally_client():
-        print "Executing create_rally_client() in Rally_Client_Util class in RallyClientUtil.py\n"
-        return Rally_Client.create_client()
+        print "Executing create_rally_client() in RallyClientUtil class in RallyClientUtil.py\n"
+        return RallyClient.create_client()
