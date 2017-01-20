@@ -9,6 +9,6 @@ from rally.RallyClient import RallyClient
 class RallyClientUtil(object):
 
     @staticmethod
-    def create_rally_client():
+    def create_rally_client(rally_server, username, password, oauth_key):
         print "Executing create_rally_client() in RallyClientUtil class in RallyClientUtil.py\n"
-        return RallyClient.create_client()
+        return RallyClient.create_client(rally_server, username, password, oauth_key)

@@ -15,6 +15,13 @@ xlDocker {
   runImage = 'xebialabs/xlr_dev_run'
   runVersion = 'v6.0.0.1'
   runPortMapping = '15516:5516'
+  download("xlr_community_plugins") {
+    src(["https://github.com/RallyTools/RallyRestToolkitForJava/releases/download/v2.2.1/rally-rest-api-2.2.1.jar",
+         "http://central.maven.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar",
+         "http://central.maven.org/maven2/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar"])
+    dest file("src/downloads/plugins")
+    acceptAnyCertificate true
+  }
 }
 
 

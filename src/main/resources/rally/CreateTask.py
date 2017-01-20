@@ -4,14 +4,8 @@
 # FOR A PARTICULAR PURPOSE. THIS CODE AND INFORMATION ARE NOT SUPPORTED BY XEBIALABS.
 #
 
-import ast
-from com.google.gson import JsonObject
-from com.rallydev.rest import RallyRestApi
-from com.rallydev.rest.request import CreateRequest
-
 from rally.RallyClientUtil import RallyClientUtil
 
-rallyClient = RallyClientUtil.create_rally_client()
 
 if rallyServer is None:
     print "No server provided."
@@ -21,43 +15,5 @@ if properties is None:
     print "No properties provided."
     sys.exit(1)
 
-rallyUrl = rallyServer['url']
-
-credentials = CredentialsFallback(rallyServer, username, password).getCredentials()
-
-restApi = None
-if oAuthKey:
-    restApi = RallyRestApi(URI(rallyUrl), oAuthKey)
-else:
-    restApi = RallyRestApi(URI(rallyUrl), credentials['username'], credentials['password'])
-
-workspaceRef = rallyClient.lookup_workspace_id_by_workspace_name(restApi, workspace)
-
-storyRef = rallyClient.lookup_user_story_by_formatted_id(restApi, "HierarchicalRequirement", userStoryFormattedId, workspaceRef)
-
-newTask = JsonObject()
-propertyDict = dict(ast.literal_eval(properties))
-for key, value in propertyDict.iteritems():
-    newTask.addProperty(key, value)
-newTask.addProperty("WorkProduct", storyRef)
-
-taskCreateRequest = CreateRequest("task", newTask)
-taskCreateResponse = restApi.create(taskCreateRequest)
-
-rallyResult = taskCreateResponse.wasSuccessful()
-print "Create task result: %s\n" % rallyResult
-
-errors = taskCreateResponse.getErrors()
-for error in errors:
-    print "Received error: %s\n" % error
-
-warnings = taskCreateResponse.getWarnings()
-for warning in warnings:
-    print "Received warning: %s\n" % warning
-
-if rallyResult:
-    print "Executed successful on Rally"
-    formattedId = taskCreateResponse.getObject().get('FormattedID').getAsString()
-else:
-    print "Failed to create record in Rally"
-    sys.exit(1)
+rally_client = RallyClientUtil.create_rally_client(rallyServer, username, password, oAuthKey)
+formattedId = rally_client.create_item(workspace, properties, userStoryFormattedId, "HierarchicalRequirement", "WorkProduct", "task")

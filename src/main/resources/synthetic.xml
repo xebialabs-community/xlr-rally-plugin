@@ -6,60 +6,47 @@
     FOR A PARTICULAR PURPOSE. THIS CODE AND INFORMATION ARE NOT SUPPORTED BY XEBIALABS.
 
 -->
-<synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<synthetic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" xmlns="http://www.xebialabs.com/deployit/synthetic">
 
-    <type type="rally.CreateDefect" extends="xlrelease.PythonScript">
-        <property name="scriptLocation" default="rally/CreateDefect.py" hidden="true" />
-        <property name="iconLocation" default="rally/rally.png" hidden="true" />
+    <type type="rally.Task" extends="xlrelease.PythonScript" virtual="true">
+        <property name="iconLocation" default="rally/rally.png" hidden="true"/>
 
         <property name="rallyServer" category="input" label="Server" referenced-type="rally.Server" kind="ci"/>
-        <property name="username" category="input" label="username" required="true" />
-        <property name="password" password="true" category="input" required="true" />
+        <property name="username" category="input" label="username" required="false"/>
+        <property name="password" password="true" category="input" required="false"/>
+        <property name="oAuthKey" category="input" label="OAuth Key" required="false"/>
 
-        <property name="oAuthKey" category="input" label="OAuth Key" required="true" />
-        <property name="workspace" category="input" label="Workspace" required="true" />
-        <property name="userStoryFormattedId" category="input" required="true" />
-        <property name="properties" category="input" label="Properties" required="true" description="Dictionary style properties that need to be updated."/>
+        <property name="workspace" category="input" label="Workspace" required="true"/>
+        <property name="userStoryFormattedId" category="input" label="Formatted id" required="true"/>
+        <property name="properties" category="input" label="Properties" required="true"
+                  description="Dictionary style properties that need to be updated."/>
+    </type>
+
+    <type type="rally.CreateDefect" extends="rally.Task">
+        <property name="scriptLocation" default="rally/CreateDefect.py" hidden="true"/>
 
         <property name="rallyResult" category="output"/>
         <property name="formattedId" category="output"/>
     </type>
 
-    <type type="rally.CreateTask" extends="xlrelease.PythonScript">
-        <property name="scriptLocation" default="rally/CreateTask.py" hidden="true" />
-        <property name="iconLocation" default="rally/rally.png" hidden="true" />
-
-        <property name="rallyServer" category="input" label="Server" referenced-type="rally.Server" kind="ci"/>
-        <property name="username" category="input" label="username" required="true" />
-        <property name="password" password="true" category="input" required="true" />
-
-        <property name="oAuthKey" category="input" label="OAuth Key" required="true" />
-        <property name="workspace" category="input" label="Workspace" required="true" />
-        <property name="userStoryFormattedId" category="input" required="true" />
-        <property name="properties" category="input" label="Properties" required="true" description="Dictionary style properties that need to be updated."/>
+    <type type="rally.CreateTask" extends="rally.Task">
+        <property name="scriptLocation" default="rally/CreateTask.py" hidden="true"/>
 
         <property name="rallyResult" category="output"/>
         <property name="formattedId" category="output"/>
     </type>
 
-    <type type="rally.UpdateProperties" extends="xlrelease.PythonScript">
-        <property name="scriptLocation" default="rally/UpdateStatus.py" hidden="true" />
-        <property name="iconLocation" default="rally/rally.png" hidden="true" />
+    <type type="rally.UpdateProperties" extends="rally.Task">
+        <property name="scriptLocation" default="rally/UpdateStatus.py" hidden="true"/>
 
-        <property name="rallyServer" category="input" label="Server" referenced-type="rally.Server" kind="ci"/>
-        <property name="username" category="input" label="username" required="true" />
-        <property name="password" password="true" category="input" required="true" />
+        <property name="rally_type" category="input" label="Type" required="true"
+                  description="defect, hierarchicalrequirement, .."/>
 
-        <property name="formattedID" category="input" label="Formatted id" required="true" />
-        <property name="oAuthKey" category="input" label="OAuth Key" required="true" />
-        <property name="properties" category="input" label="Properties" required="true" description="Dictionary style properties that need to be updated."/>
-        <property name="workspace" category="input" label="Workspace" required="true" />
-        <property name="rally_type" category="input" label="Type" required="true" description="defect, hierarchicalrequirement, .."/>
-        
 
-        <property name="rallyResult" category="output"/> 
+        <property name="rallyResult" category="output"/>
     </type>
 
 
-	<type type="rally.Server" extends="configuration.HttpConnection"/>
+    <type type="rally.Server" extends="configuration.HttpConnection"/>
 </synthetic>
