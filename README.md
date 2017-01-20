@@ -30,6 +30,8 @@ The xlr-rally-plugin is a XL Release plugin that allows to integrate XL Release 
 * **Requirements**
 	* **XL Release** 4.8+
     * [Rally Rest Toolkit for Java](https://github.com/RallyTools/RallyRestToolkitForJava) and dependencies
+* **Remark**
+    * Version 2.x is not backwards compatible with version 1.x. This means you'll have to reconfigure some tasks.
 
 # Installation #
 
