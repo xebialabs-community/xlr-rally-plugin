@@ -73,7 +73,7 @@
         <property name="workspace" category="input" label="Workspace" required="true" />
 	<property name="releaseTitle" category="input" label="Release Title" required="true" />
 	  
-        <property name="userstories" category="output"/> 
+        <property name="userstories" category="output" kind="list"/> 
     </type>
 	
     <type type="rally.Server" extends="configuration.HttpConnection"/>
