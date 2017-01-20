@@ -60,6 +60,21 @@
         <property name="rallyResult" category="output"/> 
     </type>
 
+    <type type="rally.FindUserstoriesInSprint" extends="xlrelease.PythonScript">
+        <property name="scriptLocation" default="rally/FindUserstoriesInSprint.py" hidden="true" />
+        <property name="iconLocation" default="rally/rally.png" hidden="true" />
 
-	<type type="rally.Server" extends="configuration.HttpConnection"/>
+        <property name="rallyServer" category="input" label="Server" referenced-type="rally.Server" kind="ci"/>
+        <property name="username" category="input" label="username" required="true" />
+        <property name="password" password="true" category="input" required="true" />
+
+        <property name="formattedID" category="input" label="Formatted id" required="true" />
+        <property name="oAuthKey" category="input" label="OAuth Key" required="true" />
+        <property name="workspace" category="input" label="Workspace" required="true" />
+	<property name="releaseTitle" category="input" label="Release Title" required="true" />
+	  
+        <property name="rallyResult" category="output"/> 
+    </type>
+	
+    <type type="rally.Server" extends="configuration.HttpConnection"/>
 </synthetic>
