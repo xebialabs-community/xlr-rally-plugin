@@ -24,6 +24,9 @@ class RallyClient(object):
             self.rest_api = RallyRestApi(URI(rally_url), oauth_key)
         else:
             self.rest_api = RallyRestApi(URI(rally_url), credentials['username'], credentials['password'])
+        if self.rally_server['proxyHost']:
+            self.rest_api.setProxy(URI("http://%s:%s" % (self.rally_server['proxyHost'], self.rally_server['proxyPort'])))
+
 
     @staticmethod
     def create_client(rally_server, username, password, oauth_key):
