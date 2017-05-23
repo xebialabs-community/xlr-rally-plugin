@@ -10,6 +10,7 @@ See the **[XL Release Documentation](https://docs.xebialabs.com/xl-release/index
 [![Build Status][xlr-rally-travis-image] ][xlr-rally-travis-url]
 [![Build Status][xlr-rally-codacy-image] ][xlr-rally-codacy-url]
 [![Build Status][xlr-rally-code-climate-image] ][xlr-rally-code-climate-url]
+[![License: MIT][xlr-rally-plugin-license-image]][xlr-rally-plugin-license-url]
 
 
 [xlr-rally-travis-image]: https://travis-ci.org/xebialabs-community/xlr-rally-plugin.svg?branch=master
@@ -18,6 +19,8 @@ See the **[XL Release Documentation](https://docs.xebialabs.com/xl-release/index
 [xlr-rally-codacy-url]: https://www.codacy.com/app/rvanstone/xlr-rally-plugin
 [xlr-rally-code-climate-image]: https://codeclimate.com/github/xebialabs-community/xlr-rally-plugin/badges/gpa.svg
 [xlr-rally-code-climate-url]: https://codeclimate.com/github/xebialabs-community/xlr-rally-plugin
+[xlr-rally-plugin-license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
+[xlr-rally-plugin-license-url]: https://opensource.org/licenses/MIT
 
 
 
