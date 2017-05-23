@@ -1,16 +1,19 @@
-# Preface #
+# XL Release Rally plugin #
+
+## Preface ##
 
 This document describes the functionality provided by the xlr-rally-plugin.
 
 See the **[XL Release Documentation](https://docs.xebialabs.com/xl-release/index.html)** for background information on XL Release and release concepts.
 
 
-# CI status #
+## CI status ##
 
 [![Build Status][xlr-rally-travis-image] ][xlr-rally-travis-url]
 [![Build Status][xlr-rally-codacy-image] ][xlr-rally-codacy-url]
 [![Build Status][xlr-rally-code-climate-image] ][xlr-rally-code-climate-url]
 [![License: MIT][xlr-rally-plugin-license-image]][xlr-rally-plugin-license-url]
+![Github All Releases][xlr-rally-plugin-downloads-image]
 
 
 [xlr-rally-travis-image]: https://travis-ci.org/xebialabs-community/xlr-rally-plugin.svg?branch=master
@@ -21,14 +24,15 @@ See the **[XL Release Documentation](https://docs.xebialabs.com/xl-release/index
 [xlr-rally-code-climate-url]: https://codeclimate.com/github/xebialabs-community/xlr-rally-plugin
 [xlr-rally-plugin-license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
 [xlr-rally-plugin-license-url]: https://opensource.org/licenses/MIT
+[xlr-rally-plugin-downloads-image]: https://img.shields.io/github/downloads/xebialabs-community/xlr-rally-plugin/total.svg
 
 
 
-# Overview #
+## Overview ##
 
 The xlr-rally-plugin is a XL Release plugin that allows to integrate XL Release with Rally.
 
-# Requirements #
+## Requirements ##
 
 * **Requirements**
 	* **XL Release** 4.8+
@@ -36,7 +40,7 @@ The xlr-rally-plugin is a XL Release plugin that allows to integrate XL Release 
 * **Remark**
     * Version 2.x is not backwards compatible with version 1.x. This means you'll have to reconfigure some tasks.
 
-# Installation #
+## Installation ##
 
 * Place the plugin [JAR](https://github.com/xebialabs-community/xlr-rally-plugin/releases) file into your `SERVER_HOME/plugins` directory.
 * Place the Rally Rest Toolkit [jarfile](https://github.com/RallyTools/RallyRestToolkitForJava/releases/download/v2.2.1/rally-rest-api-2.2.1.jar) into your `SERVER_HOME/plugins` directory.
@@ -44,13 +48,13 @@ The xlr-rally-plugin is a XL Release plugin that allows to integrate XL Release 
 * Place [gson-2.2.4.jar](http://central.maven.org/maven2/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar) into your `SERVER_HOME/plugins` directory.
 * Restart the server  
 
-# Types #
+## Types ##
 
 + CreateDefect
 + CreateTask
 + UpdateProperties
 
-# Usage #
+## Usage ##
 
 First, you need to add an entry in the [Configuration](https://docs.xebialabs.com/xl-release/how-to/create-custom-configuration-types-in-xl-release.html#configuration-page) section with information on how to connect to your Rally instance:
 
