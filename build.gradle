@@ -1,9 +1,9 @@
 plugins {
-  id "com.github.hierynomus.license" version "0.13.1"
-  id "com.xebialabs.xl.docker" version "1.0.0"
+  id "com.github.hierynomus.license" version "0.14.0"
+  id "com.xebialabs.xl.docker" version "1.1.0"
+  id 'nebula.release' version '6.0.0'
 }
 
-version = "2.0.0"
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
