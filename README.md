@@ -7,8 +7,6 @@ This document describes the functionality provided by the xlr-rally-plugin.
 See the **[XL Release Documentation](https://docs.xebialabs.com/xl-release/index.html)** for background information on XL Release and release concepts.
 
 
-## CI status ##
-
 [![Build Status][xlr-rally-travis-image] ][xlr-rally-travis-url]
 [![Build Status][xlr-rally-codacy-image] ][xlr-rally-codacy-url]
 [![Build Status][xlr-rally-code-climate-image] ][xlr-rally-code-climate-url]
