@@ -9,10 +9,7 @@
 #
 
 import ast
-from com.rallydev.rest import RallyRestApi
-from com.rallydev.rest.request import CreateRequest, QueryRequest, UpdateRequest
-from com.rallydev.rest.util import Fetch, QueryFilter
-from com.google.gson import JsonObject, JsonParser
+from pyral import Rally
 from xlrelease.CredentialsFallback import CredentialsFallback
 from java.net import URI
 
@@ -25,9 +22,9 @@ class RallyClient(object):
         credentials = CredentialsFallback(self.rally_server, username, password).getCredentials()
         self.rest_api = None
         if oauth_key:
-            self.rest_api = RallyRestApi(URI(rally_url), oauth_key)
+            self.rest_api = Rally(URI(rally_url), apikey=oauth_key)
         else:
-            self.rest_api = RallyRestApi(URI(rally_url), credentials['username'], credentials['password'])
+            self.rest_api = Rally(URI(rally_url), credentials['username'], credentials['password'])
         if self.rally_server['proxyHost']:
             self.rest_api.setProxy(URI("http://%s:%s" % (self.rally_server['proxyHost'], self.rally_server['proxyPort'])))
 
@@ -38,36 +35,23 @@ class RallyClient(object):
         return RallyClient(rally_server, username, password, oauth_key)
 
     def lookup_workspace_id_by_workspace_name(self, workspace_name):
-        request = QueryRequest("Workspace")
-        request.setQueryFilter(QueryFilter("Name", "=", workspace_name))
-        request.setFetch(Fetch(["ObjectId"]))
+        workspace_query_response = self.rest_api.get("Workspace", fetch="ObjectID", query="Name = %s" % workspace_name)
 
-        workspace_query_response = self.rest_api.query(request)
-
-        if workspace_query_response.wasSuccessful():
-            result = workspace_query_response.getResults()
-            parser = JsonParser()
-            object = (parser.parse(result.toString())).get(0).getAsJsonObject()
-            return object.get("ObjectID").getAsString()
+        if not workspace_query_response.errors:
+            workspace = workspace_query_response.next()
+            return workspace.ObjectID
 
 
     def lookup_user_story_by_formatted_id(self, type, formatted_id, workspace):
-        request = QueryRequest(type)
-        request.setWorkspace(workspace)
-        request.setScopedDown(True)
-        request.setScopedUp(False)
-        request.setFetch(Fetch(["ObjectID"]))
-        request.setQueryFilter(QueryFilter("FormattedID", "=", formatted_id))
-        query_response = self.rest_api.query(request)
+        response = self.rest_api.get(type, fetch="ObjectID", query = "FormattedID = %s" % formatted_id, workspace = workspace, projectScopeUp = False, projectScopeDown = True)
 
-        if query_response.wasSuccessful():
-            print("Total results: %d\n" % query_response.getTotalResultCount())
-            for result in query_response.getResults():
-                story = result.getAsJsonObject()
-                return story.get("_ref").getAsString()
+        if not response.errors:
+            print("Total results: %d\n" % response.resultCount)
+            result = response.next()
+            return result.ObjectID
         else:
             print("The following errors occurred: ")
-            for err in query_response.getErrors():
+            for err in response.errors:
                 print("\t" + err)
             return None
 
@@ -75,29 +59,21 @@ class RallyClient(object):
         workspace_ref = self.lookup_workspace_id_by_workspace_name(workspace)
         story_ref = self.lookup_user_story_by_formatted_id(user_story_type, user_story_formatted_id, workspace_ref)
 
-        new_item = JsonObject()
         property_dict = dict(ast.literal_eval(properties))
-        for key, value in property_dict.iteritems():
-            new_item.addProperty(key, value)
-        new_item.addProperty(property_type, story_ref)
+        property_dict[property_type] = story_ref
+        property_dict["Workspace"] = workspace_ref
 
-        item_create_request = CreateRequest(item_type, new_item)
-        item_create_response = self.rest_api.create(item_create_request)
+        item_create_response = self.rest_api.put(item_type, property_dict)
 
-        rally_result = item_create_response.wasSuccessful()
-        print "Create item result: %s\n" % rally_result
-
-        errors = item_create_response.getErrors()
-        for error in errors:
+        for error in item_create_response.errors:
             print "Received error: %s\n" % error
 
-        warnings = item_create_response.getWarnings()
-        for warning in warnings:
+        for warning in item_create_response.warnings:
             print "Received warning: %s\n" % warning
 
-        if rally_result:
+        if not item_create_response.errors:
             print "Executed successful on Rally"
-            return item_create_response.getObject().get('FormattedID').getAsString()
+            return item_create_response.FormattedID
         else:
             raise Exception("Failed to create record in Rally")
 
@@ -105,19 +81,19 @@ class RallyClient(object):
     def update_item(self, workspace, properties, user_story_formatted_id, user_story_type):
         workspace_ref = self.lookup_workspace_id_by_workspace_name(workspace)
         story_ref = self.lookup_user_story_by_formatted_id(user_story_type, user_story_formatted_id, workspace_ref)
-        content = JsonObject()
         property_dict = dict(ast.literal_eval(properties))
-        for key, value in property_dict.iteritems():
-            content.addProperty(key, value)
+        property_dict["Workspace"] = workspace_ref
 
-        update_request = UpdateRequest("/%s/%s" % (user_story_type, story_ref), content)
-        update_response = self.rest_api.update(update_request)
+        update_response = self.rest_api.post(user_story_type, property_dict)
 
-        rally_result = update_response.wasSuccessful()
-        print "User Story updated result: %s \n" % rally_result
+        for error in update_response.errors:
+            print "Received error: %s\n" % error
 
-        errors = update_response.getErrors()
-        for error in errors:
-            print "Received error: %s \n" % error
+        for warning in update_response.warnings:
+            print "Received warning: %s\n" % warning
 
-        return rally_result
+        if not update_response.errors:
+            print "Executed successful on Rally"
+            return update_response.FormattedID
+        else:
+            raise Exception("Failed to update record in Rally")

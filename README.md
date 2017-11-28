@@ -33,17 +33,13 @@ The xlr-rally-plugin is a XL Release plugin that allows to integrate XL Release 
 ## Requirements ##
 
 * **Requirements**
-	* **XL Release** 4.8+
-    * [Rally Rest Toolkit for Java](https://github.com/RallyTools/RallyRestToolkitForJava) and dependencies
+	* **XL Release** 6.0+
 * **Remark**
     * Version 2.x is not backwards compatible with version 1.x. This means you'll have to reconfigure some tasks.
 
 ## Installation ##
 
 * Place the plugin [JAR](https://github.com/xebialabs-community/xlr-rally-plugin/releases) file into your `SERVER_HOME/plugins` directory.
-* Place the Rally Rest Toolkit [jarfile](https://github.com/RallyTools/RallyRestToolkitForJava/releases/download/v2.2.1/rally-rest-api-2.2.1.jar) into your `SERVER_HOME/plugins` directory.
-* Place [commons-logging-1.1.1.jar](http://central.maven.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar) into your `SERVER_HOME/plugins` directory.
-* Place [gson-2.2.4.jar](http://central.maven.org/maven2/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar) into your `SERVER_HOME/plugins` directory.
 * Restart the server  
 
 ## Types ##
