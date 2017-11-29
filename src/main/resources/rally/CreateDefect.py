@@ -19,4 +19,4 @@ if properties is None:
     sys.exit(1)
 
 rally_client = RallyClientUtil.create_rally_client(rallyServer, username, password, oAuthKey)
-formattedId = rally_client.create_item(workspace, properties, userStoryFormattedId, "HierarchicalRequirement", "Requirement", "defect")
+formattedId = rally_client.create_item(workspace, project, properties, userStoryFormattedId, "UserStory", "Requirement", "Defect")

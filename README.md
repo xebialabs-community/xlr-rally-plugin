@@ -35,6 +35,8 @@ The xlr-rally-plugin is a XL Release plugin that allows to integrate XL Release 
 * **Requirements**
 	* **XL Release** 6.0+
 * **Remark**
+    * Version 3.x is based on [pyral](http://pythonhosted.org/pyral/overview.html). As such it doesn't require any additional jars.
+      However it will require some changes compared to 2.x (Different `URI` for the Shared Configuration and also requires to define the `project`)
     * Version 2.x is not backwards compatible with version 1.x. This means you'll have to reconfigure some tasks.
 
 ## Installation ##
@@ -54,9 +56,11 @@ First, you need to add an entry in the [Configuration](https://docs.xebialabs.co
 
 ![Configuration](images/rallyCI.png)
 
+For `URI`, make sure to use something like `rally1.rallydev.com` (without `http` or `https`)
+
 The next step is to add the required task [Types](#Types) to your release template, for example:
 
-![Configuration](images/updateStatusTask.png)
+![Configuration](images/updateProperties.png)
 
 Note, properties are defined in the following format
 

@@ -24,7 +24,7 @@ class RallyClient(object):
         if oauth_key:
             self.rest_api = Rally(URI(rally_url), apikey=oauth_key)
         else:
-            self.rest_api = Rally(URI(rally_url), credentials['username'], credentials['password'])
+            self.rest_api = Rally(URI(rally_url), credentials['username'], credentials['password'], verify_ssl_cert=False)
         if self.rally_server['proxyHost']:
             self.rest_api.setProxy(URI("http://%s:%s" % (self.rally_server['proxyHost'], self.rally_server['proxyPort'])))
 
@@ -34,16 +34,9 @@ class RallyClient(object):
         print "Executing create_client() in RallyClient class in RallyClient.py\n"
         return RallyClient(rally_server, username, password, oauth_key)
 
-    def lookup_workspace_id_by_workspace_name(self, workspace_name):
-        workspace_query_response = self.rest_api.get("Workspace", fetch="ObjectID", query="Name = %s" % workspace_name)
 
-        if not workspace_query_response.errors:
-            workspace = workspace_query_response.next()
-            return workspace.ObjectID
-
-
-    def lookup_user_story_by_formatted_id(self, type, formatted_id, workspace):
-        response = self.rest_api.get(type, fetch="ObjectID", query = "FormattedID = %s" % formatted_id, workspace = workspace, projectScopeUp = False, projectScopeDown = True)
+    def lookup_item_by_formatted_id(self, type, formatted_id):
+        response = self.rest_api.get(type, fetch="ObjectID", query = "FormattedID = %s" % formatted_id)
 
         if not response.errors:
             print("Total results: %d\n" % response.resultCount)
@@ -55,45 +48,28 @@ class RallyClient(object):
                 print("\t" + err)
             return None
 
-    def create_item(self, workspace, properties, user_story_formatted_id, user_story_type, property_type, item_type):
-        workspace_ref = self.lookup_workspace_id_by_workspace_name(workspace)
-        story_ref = self.lookup_user_story_by_formatted_id(user_story_type, user_story_formatted_id, workspace_ref)
+    def create_item(self, workspace, project, properties, user_story_formatted_id, user_story_type, property_type, item_type):
+        self.rest_api.setWorkspace(workspace)
+        self.rest_api.setProject(project)
+        story_ref = self.lookup_item_by_formatted_id(user_story_type, user_story_formatted_id)
 
         property_dict = dict(ast.literal_eval(properties))
         property_dict[property_type] = story_ref
-        property_dict["Workspace"] = workspace_ref
 
         item_create_response = self.rest_api.put(item_type, property_dict)
 
-        for error in item_create_response.errors:
-            print "Received error: %s\n" % error
-
-        for warning in item_create_response.warnings:
-            print "Received warning: %s\n" % warning
-
-        if not item_create_response.errors:
-            print "Executed successful on Rally"
-            return item_create_response.FormattedID
-        else:
-            raise Exception("Failed to create record in Rally")
+        print "Executed successful on Rally"
+        return item_create_response.FormattedID
 
 
-    def update_item(self, workspace, properties, user_story_formatted_id, user_story_type):
-        workspace_ref = self.lookup_workspace_id_by_workspace_name(workspace)
-        story_ref = self.lookup_user_story_by_formatted_id(user_story_type, user_story_formatted_id, workspace_ref)
+    def update_item(self, workspace, project, properties, item_formatted_id, item_type):
+        self.rest_api.setWorkspace(workspace)
+        self.rest_api.setProject(project)
+        item_object_id = self.lookup_item_by_formatted_id(item_type, item_formatted_id)
         property_dict = dict(ast.literal_eval(properties))
-        property_dict["Workspace"] = workspace_ref
+        property_dict["ObjectID"] = item_object_id
 
-        update_response = self.rest_api.post(user_story_type, property_dict)
+        update_response = self.rest_api.post(item_type, property_dict)
 
-        for error in update_response.errors:
-            print "Received error: %s\n" % error
-
-        for warning in update_response.warnings:
-            print "Received warning: %s\n" % warning
-
-        if not update_response.errors:
-            print "Executed successful on Rally"
-            return update_response.FormattedID
-        else:
-            raise Exception("Failed to update record in Rally")
+        print "Executed successful on Rally"
+        return update_response.FormattedID

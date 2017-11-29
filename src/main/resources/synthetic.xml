@@ -23,6 +23,7 @@
         <property name="oAuthKey" category="input" label="OAuth Key" required="false"/>
 
         <property name="workspace" category="input" label="Workspace" required="true"/>
+        <property name="project" category="input" label="Project" required="true"/>
         <property name="userStoryFormattedId" category="input" label="Formatted id" required="true"/>
         <property name="properties" category="input" label="Properties" required="true"
                   description="Dictionary style properties that need to be updated."/>
@@ -43,10 +44,10 @@
     </type>
 
     <type type="rally.UpdateProperties" extends="rally.Task">
-        <property name="scriptLocation" default="rally/UpdateStatus.py" hidden="true"/>
+        <property name="scriptLocation" default="rally/UpdateProperties.py" hidden="true"/>
 
         <property name="rally_type" category="input" label="Type" required="true"
-                  description="defect, hierarchicalrequirement, .."/>
+                  description="Defect, Task, .."/>
 
 
         <property name="rallyResult" category="output"/>
