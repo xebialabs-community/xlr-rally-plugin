@@ -12,8 +12,8 @@
         "id": "Configuration/Custom/rally",
         "type": "rally.Server",
         "title": "rally",
-        "url": "https://demo-rally.rallydev.com",
-        "username": "dan@acme.com",
-        "password": "Release!"
+        "url": "rally1.rallydev.com",
+        "username": "yeti@rallydev.com",
+        "password": "Vistabahn"
     }
 ]

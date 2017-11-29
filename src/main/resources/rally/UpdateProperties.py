@@ -19,4 +19,4 @@ if properties is None:
     sys.exit(1)
 
 rally_client = RallyClientUtil.create_rally_client(rallyServer, username, password, oAuthKey)
-rallyResult = rally_client.update_item(workspace, properties, userStoryFormattedId, rally_type)
+rallyResult = rally_client.update_item(workspace, project, properties, userStoryFormattedId, rally_type)

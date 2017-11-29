@@ -1,9 +1,10 @@
 plugins {
-  id "com.github.hierynomus.license" version "0.13.1"
-  id "com.xebialabs.xl.docker" version "1.0.0"
+  id "com.github.hierynomus.license" version "0.14.0"
+  id "com.xebialabs.xl.docker" version "1.1.0"
+  id 'nebula.release' version '6.0.0'
+  id "com.github.hierynomus.jython" version "0.8.0"
 }
 
-version = "2.0.0"
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
@@ -11,26 +12,29 @@ apply plugin: 'maven'
 
 xlDocker {
   compileImage = 'xebialabs/xlr_dev_compile'
-  compileVersion = 'v6.0.0.1'
+  compileVersion = 'v7.2.0.2'
   runImage = 'xebialabs/xlr_dev_run'
-  runVersion = 'v6.0.0.1'
+  runVersion = 'v7.2.0.1'
   runPortMapping = '15516:5516'
-  download("xlr_community_plugins") {
-    src(["https://github.com/RallyTools/RallyRestToolkitForJava/releases/download/v2.2.1/rally-rest-api-2.2.1.jar",
-         "http://central.maven.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar",
-         "http://central.maven.org/maven2/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar"])
-    dest file("src/downloads/plugins")
-    acceptAnyCertificate true
-  }
 }
 
-
-repositories {
-  mavenCentral()
+if (!project.hasProperty('release.scope')) {
+  project.ext['release.scope'] = 'patch'
 }
+
+if (!project.hasProperty('release.useLastTag')) {
+  project.ext['release.useLastTag'] = true
+}
+
 
 dependencies {
-  compile "com.rallydev.rest:rally-rest-api:2.2.1"
+  jython ":pyral:1.4.0"
+  jython(":six:1.11.0") {
+    artifact {
+      name = "six"
+      extension = "py"
+    }
+  }
 }
 
 license {
@@ -38,4 +42,5 @@ license {
   strictCheck false
   ext.year = Calendar.getInstance().get(Calendar.YEAR)
   ext.name = 'XEBIALABS'
+  excludes(["**/pyral/**/*.py", "**/six.py"])
 }
