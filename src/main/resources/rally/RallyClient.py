@@ -22,13 +22,13 @@ class RallyClient(object):
         rally_url = self.rally_server['url']
         credentials = CredentialsFallback(self.rally_server, username, password).getCredentials()
         self.rest_api = None
+        if self.rally_server['proxyHost']:
+            os.environ["HTTP_PROXY"] = "http://%s:%s" % (self.rally_server['proxyHost'], self.rally_server['proxyPort'])
+            os.environ["HTTPS_PROXY"] = "https://%s:%s" % (self.rally_server['proxyHost'], self.rally_server['proxyPort'])
         if oauth_key:
             self.rest_api = Rally(URI(rally_url), apikey=oauth_key)
         else:
             self.rest_api = Rally(URI(rally_url), credentials['username'], credentials['password'], verify_ssl_cert=False)
-        if self.rally_server['proxyHost']:
-            os.environ["HTTP_PROXY"] = "http://%s:%s" % (self.rally_server['proxyHost'], self.rally_server['proxyPort'])
-            os.environ["HTTPS_PROXY"] = "https://%s:%s" % (self.rally_server['proxyHost'], self.rally_server['proxyPort'])
 
     @staticmethod
     def create_client(rally_server, username, password, oauth_key):
