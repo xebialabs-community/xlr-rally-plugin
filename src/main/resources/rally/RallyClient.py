@@ -9,6 +9,7 @@
 #
 
 import ast
+import os
 from pyral import Rally
 from xlrelease.CredentialsFallback import CredentialsFallback
 from java.net import URI
@@ -26,8 +27,8 @@ class RallyClient(object):
         else:
             self.rest_api = Rally(URI(rally_url), credentials['username'], credentials['password'], verify_ssl_cert=False)
         if self.rally_server['proxyHost']:
-            self.rest_api.setProxy(URI("http://%s:%s" % (self.rally_server['proxyHost'], self.rally_server['proxyPort'])))
-
+            os.environ["HTTP_PROXY"] = "http://%s:%s" % (self.rally_server['proxyHost'], self.rally_server['proxyPort'])
+            os.environ["HTTPS_PROXY"] = "https://%s:%s" % (self.rally_server['proxyHost'], self.rally_server['proxyPort'])
 
     @staticmethod
     def create_client(rally_server, username, password, oauth_key):
