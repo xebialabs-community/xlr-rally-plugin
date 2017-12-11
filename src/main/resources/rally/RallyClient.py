@@ -23,11 +23,8 @@ class RallyClient(object):
         credentials = CredentialsFallback(self.rally_server, username, password).getCredentials()
         self.rest_api = None
         self.configure_proxy()
-        if oauth_key or self.rally_server['oAuthKey']:
-            self.rest_api = Rally(URI(rally_url), apikey=oauth_key if oauth_key else self.rally_server['oAuthKey'])
-        else:
-            self.rest_api = Rally(URI(rally_url), credentials['username'], credentials['password'],
-                                  verify_ssl_cert=False)
+        self.rest_api = Rally(URI(rally_url), credentials['username'], credentials['password'],
+                              apikey=oauth_key if oauth_key else self.rally_server['oAuthKey'], verify_ssl_cert=False)
 
     @staticmethod
     def create_client(rally_server, username, password, oauth_key):
@@ -38,14 +35,16 @@ class RallyClient(object):
         if self.rally_server['proxyHost']:
             if self.rally_server['proxyUsername']:
                 os.environ["HTTP_PROXY"] = "http://%s:%s@%s:%s" % (
-                self.rally_server['proxyUsername'], self.rally_server['proxyPassword'], self.rally_server['proxyHost'],
-                self.rally_server['proxyPort'])
+                    self.rally_server['proxyUsername'], self.rally_server['proxyPassword'],
+                    self.rally_server['proxyHost'],
+                    self.rally_server['proxyPort'])
                 os.environ["HTTPS_PROXY"] = "https://%s:%s@%s:%s" % (
-                self.rally_server['proxyUsername'], self.rally_server['proxyPassword'], self.rally_server['proxyHost'],
-                self.rally_server['proxyPort'])
+                    self.rally_server['proxyUsername'], self.rally_server['proxyPassword'],
+                    self.rally_server['proxyHost'],
+                    self.rally_server['proxyPort'])
             os.environ["HTTP_PROXY"] = "http://%s:%s" % (self.rally_server['proxyHost'], self.rally_server['proxyPort'])
             os.environ["HTTPS_PROXY"] = "https://%s:%s" % (
-            self.rally_server['proxyHost'], self.rally_server['proxyPort'])
+                self.rally_server['proxyHost'], self.rally_server['proxyPort'])
 
     def lookup_item_by_formatted_id(self, type, formatted_id):
         response = self.rest_api.get(type, fetch="ObjectID", query="FormattedID = %s" % formatted_id)
