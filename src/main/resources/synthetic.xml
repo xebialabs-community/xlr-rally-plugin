@@ -20,7 +20,7 @@
         <property name="rallyServer" category="input" label="Server" referenced-type="rally.Server" kind="ci"/>
         <property name="username" category="input" label="username" required="false"/>
         <property name="password" password="true" category="input" required="false"/>
-        <property name="oAuthKey" category="input" label="OAuth Key" required="false"/>
+        <property name="oAuthKey" password="true" category="input" label="OAuth Key" required="false"/>
 
         <property name="workspace" category="input" label="Workspace" required="true"/>
         <property name="project" category="input" label="Project" required="true"/>
@@ -54,5 +54,7 @@
     </type>
 
 
-    <type type="rally.Server" extends="configuration.HttpConnection"/>
+    <type type="rally.Server" extends="configuration.HttpConnection">
+        <property name="oAuthKey" password="true" label="OAuth Key" required="false"/>
+    </type>
 </synthetic>
