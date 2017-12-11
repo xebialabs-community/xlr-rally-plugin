@@ -14,30 +14,41 @@ from pyral import Rally
 from xlrelease.CredentialsFallback import CredentialsFallback
 from java.net import URI
 
-class RallyClient(object):
 
+class RallyClient(object):
     def __init__(self, rally_server, username, password, oauth_key):
         print "Initializing RallyClient\n"
         self.rally_server = rally_server
         rally_url = self.rally_server['url']
         credentials = CredentialsFallback(self.rally_server, username, password).getCredentials()
         self.rest_api = None
-        if self.rally_server['proxyHost']:
-            os.environ["HTTP_PROXY"] = "http://%s:%s" % (self.rally_server['proxyHost'], self.rally_server['proxyPort'])
-            os.environ["HTTPS_PROXY"] = "https://%s:%s" % (self.rally_server['proxyHost'], self.rally_server['proxyPort'])
-        if oauth_key:
-            self.rest_api = Rally(URI(rally_url), apikey=oauth_key)
+        self.configure_proxy()
+        if oauth_key or self.rally_server['oAuthKey']:
+            self.rest_api = Rally(URI(rally_url), apikey=oauth_key if oauth_key else self.rally_server['oAuthKey'])
         else:
-            self.rest_api = Rally(URI(rally_url), credentials['username'], credentials['password'], verify_ssl_cert=False)
+            self.rest_api = Rally(URI(rally_url), credentials['username'], credentials['password'],
+                                  verify_ssl_cert=False)
 
     @staticmethod
     def create_client(rally_server, username, password, oauth_key):
         print "Executing create_client() in RallyClient class in RallyClient.py\n"
         return RallyClient(rally_server, username, password, oauth_key)
 
+    def configure_proxy(self):
+        if self.rally_server['proxyHost']:
+            if self.rally_server['proxyUsername']:
+                os.environ["HTTP_PROXY"] = "http://%s:%s@%s:%s" % (
+                self.rally_server['proxyUsername'], self.rally_server['proxyPassword'], self.rally_server['proxyHost'],
+                self.rally_server['proxyPort'])
+                os.environ["HTTPS_PROXY"] = "https://%s:%s@%s:%s" % (
+                self.rally_server['proxyUsername'], self.rally_server['proxyPassword'], self.rally_server['proxyHost'],
+                self.rally_server['proxyPort'])
+            os.environ["HTTP_PROXY"] = "http://%s:%s" % (self.rally_server['proxyHost'], self.rally_server['proxyPort'])
+            os.environ["HTTPS_PROXY"] = "https://%s:%s" % (
+            self.rally_server['proxyHost'], self.rally_server['proxyPort'])
 
     def lookup_item_by_formatted_id(self, type, formatted_id):
-        response = self.rest_api.get(type, fetch="ObjectID", query = "FormattedID = %s" % formatted_id)
+        response = self.rest_api.get(type, fetch="ObjectID", query="FormattedID = %s" % formatted_id)
 
         if not response.errors:
             print("Total results: %d\n" % response.resultCount)
@@ -49,7 +60,8 @@ class RallyClient(object):
                 print("\t" + err)
             return None
 
-    def create_item(self, workspace, project, properties, user_story_formatted_id, user_story_type, property_type, item_type):
+    def create_item(self, workspace, project, properties, user_story_formatted_id, user_story_type, property_type,
+                    item_type):
         self.rest_api.setWorkspace(workspace)
         self.rest_api.setProject(project)
         story_ref = self.lookup_item_by_formatted_id(user_story_type, user_story_formatted_id)
@@ -61,7 +73,6 @@ class RallyClient(object):
 
         print "Executed successful on Rally"
         return item_create_response.FormattedID
-
 
     def update_item(self, workspace, project, properties, item_formatted_id, item_type):
         self.rest_api.setWorkspace(workspace)
