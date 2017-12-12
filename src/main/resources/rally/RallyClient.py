@@ -59,8 +59,8 @@ class RallyClient(object):
                 print("\t" + err)
             return None
 
-    def create_item(self, workspace, project, properties, user_story_formatted_id, user_story_type, property_type,
-                    item_type):
+    def create_sub_item(self, workspace, project, properties, user_story_formatted_id, user_story_type, property_type,
+                        item_type):
         self.rest_api.setWorkspace(workspace)
         self.rest_api.setProject(project)
         story_ref = self.lookup_item_by_formatted_id(user_story_type, user_story_formatted_id)
@@ -68,7 +68,13 @@ class RallyClient(object):
         property_dict = dict(ast.literal_eval(properties))
         property_dict[property_type] = story_ref
 
-        item_create_response = self.rest_api.put(item_type, property_dict)
+        return self.create_item(workspace, project, property_dict, item_type)
+
+    def create_item(self, workspace, project, properties, item_type):
+        self.rest_api.setWorkspace(workspace)
+        self.rest_api.setProject(project)
+
+        item_create_response = self.rest_api.put(item_type, properties)
 
         print "Executed successful on Rally"
         return item_create_response.FormattedID

@@ -12,9 +12,10 @@
 -->
 
 <synthetic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" xmlns="http://www.xebialabs.com/deployit/synthetic">
+           xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd"
+           xmlns="http://www.xebialabs.com/deployit/synthetic">
 
-    <type type="rally.Task" extends="xlrelease.PythonScript" virtual="true">
+    <type type="rally.BasicTask" extends="xlrelease.PythonScript" virtual="true">
         <property name="iconLocation" default="rally/rally.png" hidden="true"/>
 
         <property name="rallyServer" category="input" label="Server" referenced-type="rally.Server" kind="ci"/>
@@ -24,6 +25,9 @@
 
         <property name="workspace" category="input" label="Workspace" required="true"/>
         <property name="project" category="input" label="Project" required="true"/>
+    </type>
+
+    <type type="rally.Task" extends="rally.BasicTask" virtual="true">
         <property name="userStoryFormattedId" category="input" label="Formatted id" required="true"/>
         <property name="properties" category="input" label="Properties" required="true"
                   description="Dictionary style properties that need to be updated."/>
@@ -48,9 +52,16 @@
 
         <property name="rally_type" category="input" label="Type" required="true"
                   description="Defect, Task, .."/>
+        <property name="rallyResult" category="output"/>
+    </type>
 
+    <type type="rally.CreateUserStory" extends="rally.BasicTask">
+        <property name="scriptLocation" default="rally/CreateUserStory.py" hidden="true"/>
+        <property name="properties" category="input" label="Properties" required="true" kind="map_string_string"
+                  description="Properties that need to be set."/>
 
         <property name="rallyResult" category="output"/>
+        <property name="formattedId" category="output"/>
     </type>
 
 
