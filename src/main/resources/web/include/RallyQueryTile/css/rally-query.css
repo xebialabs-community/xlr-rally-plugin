@@ -7,13 +7,54 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-[
-    {
-        "id": "Configuration/Custom/rally",
-        "type": "rally.Server",
-        "title": "rally",
-        "url": "rally1.rallydev.com",
-        "username": "yeti@rallydev.com",
-        "password": "Vistabahn"
-    }
-]
+.rally-query-summary-container {
+  width: 90%;
+  margin: auto;
+}
+
+.rally-query-table {
+  width: 100%;
+}
+
+.rally-query-right {
+  text-align: right;
+  margin-right: 1em;
+}
+
+.rally-query-tile ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.rally-query-tile li {
+  margin-top: 4px;
+}
+
+.rally-query-tile .legend {
+  margin-top: 40px;
+}
+
+.rally-query-tile .counter {
+  text-align: center;
+}
+
+.rally-query-tile .grid-container {
+  margin-top: 15px;
+}
+
+.rally-query-tile .ui-grid-viewport {
+  overflow-x: hidden !important;
+  overflow-y: scroll;
+}
+
+.rally-query-tile .highcharts-two-part-title {
+  line-height: 22px;
+}
+
+.rally-query-tile .no-results {
+  margin: 70px 10px;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+}

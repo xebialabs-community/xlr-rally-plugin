@@ -1,5 +1,5 @@
 #
-# Copyright 2017 XEBIALABS
+# Copyright 2018 XEBIALABS
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 #
@@ -13,6 +13,10 @@ import os
 from pyral import Rally
 from xlrelease.CredentialsFallback import CredentialsFallback
 from java.net import URI
+import requests
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
 class RallyClient(object):
@@ -90,3 +94,17 @@ class RallyClient(object):
 
         print "Executed successful on Rally"
         return update_response.FormattedID
+    
+    def query(self, workspace, project, item_type,query, fetch="True", rollupdata=False):
+        self.rest_api.setWorkspace(workspace)
+        self.rest_api.setProject(project)
+        response = self.rest_api.get(item_type, fetch=fetch, query=query, projectScopeDown=rollupdata)
+
+        if not response.errors:
+            print("Total results: %d\n" % response.resultCount)
+            return response
+        else:
+            print("The following errors occurred: ")
+            for err in response.errors:
+                print("\t" + err)
+            return None

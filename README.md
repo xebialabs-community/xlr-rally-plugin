@@ -91,4 +91,13 @@ In the example above the Task TA3 has been updated with a new description and it
 ##### User Story #####
 * code: US
 
+### Rally Tile ###
+This tile can be used to capture rally records based on a query
+
+####Tile Configuration####
+![Configuration](images/rallyTileConfig.png)
+
+#### Tile Preview ####
+![Configuration](images/rallyTile.jpg)
+
 
