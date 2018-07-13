@@ -37,6 +37,9 @@ class RallyClient(object):
 
     def configure_proxy(self):
         if self.rally_server['proxyHost']:
+            os.environ["HTTP_PROXY"] = "http://%s:%s" % (self.rally_server['proxyHost'], self.rally_server['proxyPort'])
+            os.environ["HTTPS_PROXY"] = "https://%s:%s" % (self.rally_server['proxyHost'], self.rally_server['proxyPort'])
+            
             if self.rally_server['proxyUsername']:
                 os.environ["HTTP_PROXY"] = "http://%s:%s@%s:%s" % (
                     self.rally_server['proxyUsername'], self.rally_server['proxyPassword'],
@@ -46,9 +49,7 @@ class RallyClient(object):
                     self.rally_server['proxyUsername'], self.rally_server['proxyPassword'],
                     self.rally_server['proxyHost'],
                     self.rally_server['proxyPort'])
-            os.environ["HTTP_PROXY"] = "http://%s:%s" % (self.rally_server['proxyHost'], self.rally_server['proxyPort'])
-            os.environ["HTTPS_PROXY"] = "https://%s:%s" % (
-                self.rally_server['proxyHost'], self.rally_server['proxyPort'])
+            
 
     def lookup_item_by_formatted_id(self, type, formatted_id):
         response = self.rest_api.get(type, fetch="ObjectID", query="FormattedID = %s" % formatted_id)
