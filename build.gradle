@@ -36,7 +36,7 @@ repositories {
 
 
 dependencies {
-  jython ":pyral:1.4.1"
+  jython ":pyral:1.4.2"
   jython(":six:1.11.0") {
     artifact {
       name = "six"
