@@ -11,10 +11,10 @@ apply plugin: 'eclipse'
 apply plugin: 'maven'
 
 xlDocker {
-  compileImage = 'xebialabs/xlr_dev_compile'
-  compileVersion = 'v7.2.0.2'
-  runImage = 'xebialabs/xlr_dev_run'
-  runVersion = 'v7.2.0.1'
+  compileImage = 'xebialabsunsupported/xlr_dev_compile'
+  compileVersion = '8.1.0'
+  runImage = 'xebialabsunsupported/xlr_dev_run'
+  runVersion = '8.1.0'
   runPortMapping = '15516:5516'
 }
 
@@ -26,6 +26,14 @@ if (!project.hasProperty('release.useLastTag')) {
   project.ext['release.useLastTag'] = true
 }
 
+repositories {
+  mavenLocal()
+  mavenCentral()
+  maven {
+    url 'https://dist.xebialabs.com/public/maven2'
+  }
+}
+
 
 dependencies {
   jython ":pyral:1.4.1"
@@ -35,7 +43,19 @@ dependencies {
       extension = "py"
     }
   }
+  testCompile "com.xebialabs.gradle.plugins:xl-test-api:0.0.63"
 }
+
+task itest(type: Test) {
+    useTestNG() {
+        systemProperty "CHROME_HEADLESS_MODE", findProperty("CHROME_HEADLESS_MODE")
+        //set TestNG output dir
+        outputDirectory = file("$project.buildDir//testngOutput")
+        //required to turn on TestNG reports
+        useDefaultListeners = true
+    }
+}
+
 
 license {
   header rootProject.file('License.md')
