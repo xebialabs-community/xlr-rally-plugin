@@ -28,7 +28,7 @@ if (!project.hasProperty('release.useLastTag')) {
 
 
 dependencies {
-  jython ":pyral:1.4.0"
+  jython ":pyral:1.4.1"
   jython(":six:1.11.0") {
     artifact {
       name = "six"
@@ -39,7 +39,7 @@ dependencies {
 
 license {
   header rootProject.file('License.md')
-  strictCheck false
+  strictCheck true
   ext.year = Calendar.getInstance().get(Calendar.YEAR)
   ext.name = 'XEBIALABS'
   excludes(["**/pyral/**/*.py", "**/six.py"])
