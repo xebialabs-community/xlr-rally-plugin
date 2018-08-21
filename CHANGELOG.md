@@ -6,7 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+
+## v3.5.0
+
+### Added
+- Added Update Owner
+
+### Improved
 - Quality updates: Removed pyral from `src/main/resources`
 - Updated docker containers to XL Release 8.1.0
 - Added automated testing
-- Added Update Owner
