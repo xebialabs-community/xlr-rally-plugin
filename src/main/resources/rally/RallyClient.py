@@ -51,7 +51,9 @@ class RallyClient(object):
                     self.rally_server['proxyPort'])
             
 
-    def lookup_item_by_formatted_id(self, type, formatted_id):
+    def lookup_item_by_formatted_id(self, workspace, project, type, formatted_id):
+        self.rest_api.setWorkspace(workspace)
+        self.rest_api.setProject(project)
         response = self.rest_api.get(type, fetch="ObjectID", query="FormattedID = %s" % formatted_id)
 
         if not response.errors:
@@ -68,7 +70,7 @@ class RallyClient(object):
                         item_type):
         self.rest_api.setWorkspace(workspace)
         self.rest_api.setProject(project)
-        story_ref = self.lookup_item_by_formatted_id(user_story_type, user_story_formatted_id)
+        story_ref = self.lookup_item_by_formatted_id(workspace, project, user_story_type, user_story_formatted_id)
 
         property_dict = dict(ast.literal_eval(properties))
         property_dict[property_type] = story_ref
@@ -87,7 +89,7 @@ class RallyClient(object):
     def update_item(self, workspace, project, properties, item_formatted_id, item_type):
         self.rest_api.setWorkspace(workspace)
         self.rest_api.setProject(project)
-        item_object_id = self.lookup_item_by_formatted_id(item_type, item_formatted_id)
+        item_object_id = self.lookup_item_by_formatted_id(workspace, project, item_type, item_formatted_id)
         property_dict = dict(ast.literal_eval(properties))
         property_dict["ObjectID"] = item_object_id
 

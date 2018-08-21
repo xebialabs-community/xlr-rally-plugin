@@ -75,7 +75,6 @@
         <property name="owner_name" category="input" label="Name" required="false" description="Rally Name for the user. Only one of User Object ID, Username or Name can be set" />
 
         <property name="rallyResult" category="output"/>
-
     </type>
 
     <type type="rally.UpdateScheduleState" extends="rally.BasicTask">
@@ -94,9 +93,22 @@
         </property>
 
         <property name="rallyResult" category="output"/>
-
     </type>
 
+    <type type="rally.UpdateParent" extends="rally.BasicTask">
+        <property name="scriptLocation" default="rally/UpdateParent.py" hidden="true"/>
+
+        <property name="rally_type" category="input" label="Type" required="true"
+                  description="Defect, Task, .."/>
+        <property name="userStoryFormattedId" category="input" label="Formatted id" required="true"/>
+        <property name="parent_workspace" category="input" label="Parent Workspace" required="true"/>
+        <property name="parent_project" category="input" label="Parent Project" required="true"/>
+        <property name="parent_rally_type" category="input" label="Parent Type" required="true"
+                  description="Defect, Task, .."/>
+        <property name="parent_formatted_id" category="input" label="Parent Formatted id" required="true"/>
+        
+        <property name="rallyResult" category="output"/>
+    </type>
 
     <type type="rally.Server" extends="configuration.HttpConnection">
         <property name="oAuthKey" password="true" label="OAuth Key" required="false" category="oauth"/>
