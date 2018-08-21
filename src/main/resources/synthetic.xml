@@ -64,9 +64,23 @@
         <property name="formattedId" category="output"/>
     </type>
 
+    <type type="rally.UpdateOwner" extends="rally.BasicTask">
+        <property name="scriptLocation" default="rally/UpdateOwner.py" hidden="true"/>
+
+        <property name="rally_type" category="input" label="Type" required="true"
+                  description="Defect, Task, .."/>
+        <property name="userStoryFormattedId" category="input" label="Formatted id" required="true"/>
+        <property name="oid" category="input" label="User Object ID" required="false" description="Rally Object ID for the user. Only one of User Object ID, Username or Name can be set" />
+        <property name="owner_username" category="input" label="Username" required="false" description="Rally Username for the user. Only one of User Object ID, Username or Name can be set" />
+        <property name="owner_name" category="input" label="Name" required="false" description="Rally Name for the user. Only one of User Object ID, Username or Name can be set" />
+
+        <property name="rallyResult" category="output"/>
+
+    </type>
+
 
     <type type="rally.Server" extends="configuration.HttpConnection">
-        <property name="oAuthKey" password="true" label="OAuth Key" required="false"/>
+        <property name="oAuthKey" password="true" label="OAuth Key" required="false" category="oauth"/>
     </type>
 
     <type type="rally.QueryTile" label="Rally query tile" extends="xlrelease.Tile">

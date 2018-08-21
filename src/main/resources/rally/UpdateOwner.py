@@ -7,21 +7,24 @@
 #
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
-version: "3"
-services:
-  xlr:
-    image: xebialabs/xl-release:8.1.0
-    container_name: xlr
-    volumes:
-      - ~/xl-licenses/xl-release-license.lic:/opt/xl-release-server/default-conf/xl-release-license.lic
-      - ./../../../../build/libs/${plugin_jar}:/opt/xl-release-server/default-plugins/__local__/${plugin_jar}
-    environment:
-      - ADMIN_PASSWORD=admin
-    ports:
-    - "5516:5516"
-  
-  credentials:
-    image: xebialabsunsupported/xl-docker-demo-xlr-credentials-updater:latest
-    container_name: credentials_updater
-    links:
-      - xlr
+
+from rally.RallyClientUtil import RallyClientUtil
+
+if rallyServer is None:
+    print "No server provided."
+    sys.exit(1)
+
+if oid is None and owner_username is None and owner_name is None:
+    print "One of User Object ID, Username or Name must be provided."
+    sys.exit(1)
+
+rally_client = RallyClientUtil.create_rally_client(rallyServer, username, password, oAuthKey)
+
+if owner_username:
+    oid = rally_client.get_user_object_id(owner_username=owner_username)
+if owner_name:
+    oid = rally_client.get_user_object_id(owner_name=owner_name)
+
+properties = "{'owner': '%s'}" % str(oid)
+
+rallyResult = rally_client.update_item(workspace, project, properties, userStoryFormattedId, rally_type)
