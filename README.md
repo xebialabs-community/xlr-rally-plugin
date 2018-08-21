@@ -12,7 +12,7 @@ See the **[XL Release Documentation](https://docs.xebialabs.com/xl-release/index
 [![Build Status][xlr-rally-code-climate-image] ][xlr-rally-code-climate-url]
 [![License: MIT][xlr-rally-plugin-license-image]][xlr-rally-plugin-license-url]
 ![Github All Releases][xlr-rally-plugin-downloads-image]
-
+[![xlrtdk][xlrtdk-image] ][xlrtdk-url]
 
 [xlr-rally-travis-image]: https://travis-ci.org/xebialabs-community/xlr-rally-plugin.svg?branch=master
 [xlr-rally-travis-url]: https://travis-ci.org/xebialabs-community/xlr-rally-plugin
@@ -23,6 +23,8 @@ See the **[XL Release Documentation](https://docs.xebialabs.com/xl-release/index
 [xlr-rally-plugin-license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
 [xlr-rally-plugin-license-url]: https://opensource.org/licenses/MIT
 [xlr-rally-plugin-downloads-image]: https://img.shields.io/github/downloads/xebialabs-community/xlr-rally-plugin/total.svg
+[xlrtdk-image]: https://img.shields.io/badge/xlrelease-tdk-brightgreen.svg
+[xlrtdk-url]: https://docs.xebialabs.com/xl-release/concept/versioned/tdk-api-readme.html
 
 
 
