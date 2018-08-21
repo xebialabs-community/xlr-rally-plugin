@@ -68,7 +68,7 @@ public class LoginTest extends BaseTest {
         SharedConfigurationPropertiesPage.setEditFieldBySequence(7, "yeti@rallydev.com");
         SharedConfigurationPropertiesPage.setEditFieldBySequence(8, "Vistabahn");
         SharedConfigurationPropertiesPage.clickButtonByText("Test");
-        SharedConfigurationPropertiesPage.checkConnectionStatusShouldContain("Rally: Server is available");
+        SharedConfigurationPropertiesPage.checkConnectionStatusShouldContain("Rally Server is available");
     }
 
     @AfterMethod
