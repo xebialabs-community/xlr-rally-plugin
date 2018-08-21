@@ -80,7 +80,7 @@
 
 
     <type type="rally.Server" extends="configuration.HttpConnection">
-        <property name="oAuthKey" password="true" label="OAuth Key" required="false"/>
+        <property name="oAuthKey" password="true" label="OAuth Key" required="false" category="oauth"/>
     </type>
 
     <type type="rally.QueryTile" label="Rally query tile" extends="xlrelease.Tile">

@@ -65,8 +65,8 @@ public class LoginTest extends BaseTest {
         SharedConfigurationPropertiesPage.setEditFieldBySequence(2, "rally1.rallydev.com");
         SharedConfigurationPropertiesPage.clickElementById("authenticationMethod"); // clicking the element so that select field will be visible on next step
         SharedConfigurationPropertiesPage.setOptionFromSelectFieldBySequence(1,"Basic");
-        SharedConfigurationPropertiesPage.setEditFieldBySequence(7, "yeti@rallydev.com");
-        SharedConfigurationPropertiesPage.setEditFieldBySequence(8, "Vistabahn");
+        SharedConfigurationPropertiesPage.typeElementById("username", "yeti@rallydev.com");
+        SharedConfigurationPropertiesPage.typeElementById("password", "Vistabahn");
         SharedConfigurationPropertiesPage.clickButtonByText("Test");
         SharedConfigurationPropertiesPage.checkConnectionStatusShouldContain("Rally Server is available");
     }

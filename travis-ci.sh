@@ -11,3 +11,4 @@ docker wait credentials_updater
 docker logs xlr
 ./gradlew itest -PCHROME_HEADLESS_MODE=true
 docker-compose -f src/test/resources/docker/docker-compose.yml stop
+docker-compose -f src/test/resources/docker/docker-compose.yml rm -f
