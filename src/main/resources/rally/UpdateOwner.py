@@ -14,17 +14,17 @@ if rallyServer is None:
     print "No server provided."
     sys.exit(1)
 
-if oid is None and username is None and name is None:
+if oid is None and owner_username is None and owner_name is None:
     print "One of User Object ID, Username or Name must be provided."
     sys.exit(1)
 
 rally_client = RallyClientUtil.create_rally_client(rallyServer, username, password, oAuthKey)
 
-if username:
-    oid = rally_client.get_user_object_id(username = username)
-if name:
-    oid = rally_client.get_user_object_id(name = name)
+if owner_username:
+    oid = rally_client.get_user_object_id(owner_username=owner_username)
+if owner_name:
+    oid = rally_client.get_user_object_id(owner_name=owner_name)
 
-properties = {"owner":oid}
+properties = "{'owner': '%s'}" % str(oid)
 
 rallyResult = rally_client.update_item(workspace, project, properties, userStoryFormattedId, rally_type)

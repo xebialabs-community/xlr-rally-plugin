@@ -22,19 +22,53 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
-    public void openConfigurationJenkins(){
+    public void openConfigurationRally(){
         MainMenu.clickMenu("Settings");
         SubMenu.clickSubMenu("Shared configuration");
-        SharedConfigurationPage.openSharedConfiguration("Jenkins: Server");
-        SharedConfigurationPropertiesPage.checkSharedConfigurationHeader("Jenkins");
+        SharedConfigurationPage.openSharedConfiguration("Rally: Server");
+        SharedConfigurationPropertiesPage.checkSharedConfigurationHeader("Rally");
     }
 
     @Test
-    public void openConfigurationGit(){
+    public void SaveConfiguration(){
         MainMenu.clickMenu("Settings");
         SubMenu.clickSubMenu("Shared configuration");
-        SharedConfigurationPage.openSharedConfiguration("Git: Repository");
-        SharedConfigurationPropertiesPage.checkSharedConfigurationHeader("Git");
+        SharedConfigurationPage.openSharedConfiguration("Rally: Server");
+        SharedConfigurationPropertiesPage.checkSharedConfigurationHeader("Rally");
+        SharedConfigurationPropertiesPage.setEditFieldBySequence(1,"Rally Config 1");
+        SharedConfigurationPropertiesPage.setEditFieldBySequence(2,"Rally url");
+        SharedConfigurationPropertiesPage.clickButtonByText("Save");
+        SharedConfigurationPropertiesPage.isNewConfigurationSaved().isSharedConfigurationPageVisible("Rally: Server");
+    }
+
+    @Test
+    public void TestInvalidConfiguration(){
+        MainMenu.clickMenu("Settings");
+        SubMenu.clickSubMenu("Shared configuration");
+        SharedConfigurationPage.openSharedConfiguration("Rally: Server");
+        SharedConfigurationPropertiesPage.checkSharedConfigurationHeader("Rally");
+        SharedConfigurationPropertiesPage.setEditFieldBySequence(1,"Rally Config 2");
+        SharedConfigurationPropertiesPage.setEditFieldBySequence(2,"Rally Url");
+        SharedConfigurationPropertiesPage.clickElementById("authenticationMethod"); // clicking the element so that select field will be visible on next step
+        SharedConfigurationPropertiesPage.setOptionFromSelectFieldBySequence(1,"None");
+        SharedConfigurationPropertiesPage.clickButtonByText("Test");
+        SharedConfigurationPropertiesPage.checkConnectionStatusShouldContain("Can't connect");
+    }
+
+    @Test
+    public void TestValidConfiguration(){
+        MainMenu.clickMenu("Settings");
+        SubMenu.clickSubMenu("Shared configuration");
+        SharedConfigurationPage.openSharedConfiguration("Rally: Server");
+        SharedConfigurationPropertiesPage.checkSharedConfigurationHeader("Rally");
+        SharedConfigurationPropertiesPage.setEditFieldBySequence(1,"Rally Config 3");
+        SharedConfigurationPropertiesPage.setEditFieldBySequence(2, "rally1.rallydev.com");
+        SharedConfigurationPropertiesPage.clickElementById("authenticationMethod"); // clicking the element so that select field will be visible on next step
+        SharedConfigurationPropertiesPage.setOptionFromSelectFieldBySequence(1,"Basic");
+        SharedConfigurationPropertiesPage.setEditFieldBySequence(7, "yeti@rallydev.com");
+        SharedConfigurationPropertiesPage.setEditFieldBySequence(8, "Vistabahn");
+        SharedConfigurationPropertiesPage.clickButtonByText("Test");
+        SharedConfigurationPropertiesPage.checkConnectionStatusShouldContain("Rally: Server is available");
     }
 
     @AfterMethod

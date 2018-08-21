@@ -110,15 +110,7 @@ class RallyClient(object):
                 print("\t" + err)
             return None
 
-    def get_user_object_id(username=None, name=None):
-        response = self.rest_api.getUserInfo(username=username, name=name)
+    def get_user_object_id(self, owner_username=None, owner_name=None):
+        response = self.rest_api.getUserInfo(username=owner_username, name=owner_name)
 
-        if not response.errors:
-            return response[0].ObjectID
-        else:
-            print("The following errors occurred: ")
-            for err in response.errors:
-                print("\t" + err)
-            return None
-
-
+        return response[0].ObjectID
