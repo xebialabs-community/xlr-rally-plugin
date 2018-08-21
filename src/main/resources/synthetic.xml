@@ -110,6 +110,17 @@
         <property name="rallyResult" category="output"/>
     </type>
 
+    <type type="rally.GetStatus" extends="rally.BasicTask">
+        <property name="scriptLocation" default="rally/GetStatus.py" hidden="true"/>
+
+        <property name="rally_type" category="input" label="Type" required="true"
+                  description="Defect, Task, .."/>
+        <property name="userStoryFormattedId" category="input" label="Formatted id" required="true"/>
+
+        <property name="rallyResult" category="output"/>
+        <property name="status" category="output" label="Status" description="Item Status (Ready, Blocked or Undefined)" />
+    </type>
+
     <type type="rally.Server" extends="configuration.HttpConnection">
         <property name="oAuthKey" password="true" label="OAuth Key" required="false" category="oauth"/>
     </type>

@@ -98,7 +98,7 @@ class RallyClient(object):
         print "Executed successful on Rally"
         return update_response.FormattedID
     
-    def query(self, workspace, project, item_type,query, fetch="True", rollupdata=False):
+    def query(self, workspace, project, item_type, query, fetch="True", rollupdata=False):
         self.rest_api.setWorkspace(workspace)
         self.rest_api.setProject(project)
         response = self.rest_api.get(item_type, fetch=fetch, query=query, projectScopeDown=rollupdata)
