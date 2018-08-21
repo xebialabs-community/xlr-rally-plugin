@@ -6,12 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
-+ Added XL Test Api badge
+- Added updateParent task
+
 
 ## v3.6.0
 
 ### Added
 - Added UpdateScheduleState task
+- Added XL Test Api badge
 
 ## v3.5.0
 
