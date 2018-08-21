@@ -6,8 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
-- Added updateParent task
 
+## v3.7.0
+
+### Added
+- Added updateParent task
 
 ## v3.6.0
 
