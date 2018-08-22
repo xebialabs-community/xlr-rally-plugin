@@ -159,7 +159,7 @@
                         width: '43%'
                     },
                     {
-                        displayName: "DefectScheduleState",
+                        displayName: "ScheduleState",
                         field: "schedulestate",
                         cellTemplate: "static/@project.version@/include/RallyQueryTile/grid/state-cell-template.html",
                         filterHeaderTemplate: filterHeaderTemplate,

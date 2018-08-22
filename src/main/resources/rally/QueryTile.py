@@ -15,11 +15,11 @@ def get_row_data(item):
     row_map['id'] = item.FormattedID
     row_map['oid'] = item.oid
     row_map['name'] = item.Name if item.Name else "None"
-    row_map['readyblocked'] = "Ready" if item.Ready else "Blocked" if item.Blocked else "None"
-    row_map['schedulestate'] = item.ScheduleState if item.ScheduleState else "Undefined"
+    row_map['readyblocked'] = "Ready" if item.Ready else "Blocked" if hasattr(item, 'Blocked') and item.Blocked else "None"
+    row_map['schedulestate'] = item.ScheduleState if hasattr(item, 'ScheduleState') and item.ScheduleState else "Undefined"
     row_map['owner'] = item.Owner.DisplayName if item.Owner else "None"
     row_map['project'] = item.Project.Name if item.Project else "None"
-    row_map['link'] = "https://%s/#/detail/%s/%s" % (rallyUrl, itemType.lower(), item.oid)
+    row_map['link'] = item._ref.replace("slm/webservice/v2.0","#/detail")
     return row_map
 
 if rallyServer is None:
