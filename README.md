@@ -55,6 +55,7 @@ The xlr-rally-plugin is a XL Release plugin that allows to integrate XL Release 
 + UpdateOwner
 + UpdateScheduleState
 + UpdateParent
++ GetStatus
 
 ## Usage ##
 

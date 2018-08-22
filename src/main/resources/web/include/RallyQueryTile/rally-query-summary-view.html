@@ -24,7 +24,7 @@
                     <li class="row" ng-repeat="value in rallyQueryTile.states | orderBy:'-counter'">
                         <span class="col-sm-1"><span class="circle" ng-style="{'background-color': value.color}"></span></span>
                         <span class="col-sm-1">{{value.counter}}</span>
-                        <span class="col-sm-6">{{value.status}}</span>
+                        <span class="col-sm-6">{{value.schedulestate}}</span>
                     </li>
                     <li class="row" ng-if="rallyQueryTile.statesCounter > 5">
                         <span class="col-sm-2"></span>

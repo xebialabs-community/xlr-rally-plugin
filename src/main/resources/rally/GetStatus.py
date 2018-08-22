@@ -10,29 +10,18 @@
 
 from rally.RallyClientUtil import RallyClientUtil
 
-def get_row_data(item):
-    row_map = {}
-    row_map['id'] = item.FormattedID
-    row_map['oid'] = item.oid
-    row_map['name'] = item.Name if item.Name else "None"
-    row_map['readyblocked'] = "Ready" if item.Ready else "Blocked" if item.Blocked else "None"
-    row_map['schedulestate'] = item.ScheduleState if item.ScheduleState else "Undefined"
-    row_map['owner'] = item.Owner.DisplayName if item.Owner else "None"
-    row_map['project'] = item.Project.Name if item.Project else "None"
-    row_map['link'] = "https://%s/#/detail/%s/%s" % (rallyUrl, itemType.lower(), item.oid)
-    return row_map
-
 if rallyServer is None:
     print "No server provided."
     sys.exit(1)
-rallyUrl = rallyServer['url'].rstrip("/")
-
-
 
 rally_client = RallyClientUtil.create_rally_client(rallyServer, username, password, oAuthKey)
-rallyResult = rally_client.query(workspace, project, itemType, query=query, fetch="FormattedID,oid,Name,Ready,Blocked,Owner,ScheduleState,Project", rollupdata=rollupdata)
 
-rows = {}
-for item in rallyResult:
-    rows[item.oid] = get_row_data(item)
-data = rows    
+rallyResult = rally_client.query(workspace, project, rally_type, query="FormattedID = %s" % userStoryFormattedId, fetch="True", rollupdata=True)
+if rallyResult.resultCount != 1:
+    raise Exception("Did not find 1 unique item")
+status = "Undefined"
+item = rallyResult.next()
+if item.Ready:
+    status = "Ready"
+if item.Blocked:
+    status = "Blocked"

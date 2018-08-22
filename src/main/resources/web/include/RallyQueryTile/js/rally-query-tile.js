@@ -78,11 +78,11 @@
             bottomTitleText: getTitle,
             series: function (data) {
                 var series = {
-                    name: 'Status',
+                    name: 'ScheduleState',
                     data: []
                 };
                 series.data = _.map(data.data, function (value) {
-                    return {y: value.counter, name: value.status, color: value.color};
+                    return {y: value.counter, name: value.schedulestate, color: value.color};
                 });
                 return [ series ];
             },
@@ -109,18 +109,18 @@
                                 total: 0
                             };
                             vm.issuesSummaryData.data = _.reduce(issues, function (result, value) {
-                                var status = value.status;
+                                var schedulestate = value.schedulestate;
                                 vm.issuesSummaryData.total += 1;
-                                if (result[status]) {
-                                result[status].counter += 1;
+                                if (schedulestate[schedulestate]) {
+                                result[schedulestate].counter += 1;
                             } else {
-                                result[status] = {
+                                result[schedulestate] = {
                                     counter: 1,
-                                    color: getColor(status),
-                                    status: status
+                                    color: getColor(schedulestate),
+                                    schedulestate: schedulestate
                                 };
                             }
-                            value.color = result[status].color;
+                            value.color = result[schedulestate].color;
                             rallyIssueArray.push(value);
                             return result;
 
@@ -159,8 +159,8 @@
                         width: '43%'
                     },
                     {
-                        displayName: "DefectStatus",
-                        field: "status",
+                        displayName: "DefectScheduleState",
+                        field: "schedulestate",
                         cellTemplate: "static/@project.version@/include/RallyQueryTile/grid/state-cell-template.html",
                         filterHeaderTemplate: filterHeaderTemplate,
                         enableColumnMenu: false,
