@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## v3.8.1
+
+### Fixes
+- Renamed DefectScheduleState to ScheduleState in tile
+- Fixed errors in tile for fetching portfolio item
+
+
 ## v3.8.0
 
 ### Added
