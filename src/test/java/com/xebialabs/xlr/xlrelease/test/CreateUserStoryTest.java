@@ -16,21 +16,24 @@ import org.testng.annotations.*;
 public class CreateUserStoryTest extends BaseTest {
 
     @BeforeMethod
-    public void testStartUp(){
+    public void testStartUp() {
         System.out.println("called before method");
-        LoginPage.login("admin","admin");
+        LoginPage.login("admin", "admin");
     }
 
-    @Test(enabled = false)
-    public void TestCreateUserStory(){
+    @Test
+    public void TestCreateUserStory() {
+        TaskDetailPage taskDetailsPage;
         MainMenu.clickMenu("Settings");
         SubMenu.clickSubMenu("Shared configuration");
         SharedConfigurationPage.openSharedConfiguration("Rally: Server");
         SharedConfigurationPropertiesPage.checkSharedConfigurationHeader("Rally");
-        SharedConfigurationPropertiesPage.setEditFieldBySequence(1,"Rally Config 3");
+        SharedConfigurationPropertiesPage.setEditFieldBySequence(1, "Rally Config 3");
         SharedConfigurationPropertiesPage.setEditFieldBySequence(2, "rally1.rallydev.com");
-        SharedConfigurationPropertiesPage.clickElementById("authenticationMethod"); // clicking the element so that select field will be visible on next step
-        SharedConfigurationPropertiesPage.setOptionFromSelectFieldBySequence(1,"Basic");
+        SharedConfigurationPropertiesPage.clickElementById("authenticationMethod"); // clicking the element so that
+                                                                                    // select field will be visible on
+                                                                                    // next step
+        SharedConfigurationPropertiesPage.setOptionFromSelectFieldBySequence(1, "Basic");
         SharedConfigurationPropertiesPage.typeElementById("username", "yeti@rallydev.com");
         SharedConfigurationPropertiesPage.typeElementById("password", "Vistabahn");
         SharedConfigurationPropertiesPage.clickButtonByText("Test");
@@ -39,24 +42,24 @@ public class CreateUserStoryTest extends BaseTest {
         MainMenu.clickMenu("Design");
         SubMenu.clickSubMenu("Templates");
         TemplateListPage.clickNewTemplate();
-        CreateTemplatePage
-                .createTemplateByName("Rally Create User Story Template")
-                .addTask("Rally","Rally","CreateUserStory")
-                .selectItemByIndex(1,"Rally Config 3")
-                .typeStringByIndex(2,"Alligators BLD Unigrations")
-                .typeStringByIndex(3,"Manual Test 4")
-                .typeStringByIndex(4,"name")
-                .typeStringByIndex(5,"testxlr")
-                // .clickButtonByText("Add")
-                .closeTaskDetails()
-                .newReleaseFromTemplate()
-                .createReleaseByName("Rally Release")
-                .startRelease()
+        taskDetailsPage = CreateTemplatePage.createTemplateByName("Rally Create User Story Template")
+                .addTask("Rally", "Rally", "Create User Story").selectItemByIndex(1, "Rally Config 3")
+                .typeStringByIndex(4, "Alligators BLD Unigrations").typeStringByIndex(5, "Manual Test 4");
+
+        this.addKeyValue("name", "testxlr");
+
+        taskDetailsPage.closeTaskDetails().newReleaseFromTemplate().createReleaseByName("Rally Release").startRelease()
                 .waitTillReleaseCompletes(25);
     }
 
+    private void addKeyValue(String key, String value) {
+        BaseTest.driver.findElementByXPath("//table[@class='table']//tr//td[1]/input").sendKeys(key);
+        BaseTest.driver.findElementByXPath("//table[@class='table']//tr//td[2]/input").sendKeys(value);
+        BaseTest.driver.findElementByXPath("//table[@class='table']//tr//td[3]/div[1]/div[2]/button").click();
+    }
+
     @AfterMethod
-    public void logout(){
+    public void logout() {
         System.out.println("called after method");
         MainMenu.logout();
     }
