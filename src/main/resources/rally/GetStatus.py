@@ -23,5 +23,5 @@ status = "Undefined"
 item = rallyResult.next()
 if item.Ready:
     status = "Ready"
-if item.Blocked:
+if hasattr(item, 'Blocked') and item.Blocked:
     status = "Blocked"
