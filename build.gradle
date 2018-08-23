@@ -43,7 +43,7 @@ dependencies {
       extension = "py"
     }
   }
-  testCompile "com.xebialabs.gradle.plugins:xl-test-api:0.0.63"
+  testCompile "com.xebialabs.gradle.plugins:xl-test-api:0.0.64"
 }
 
 task itest(type: Test) {

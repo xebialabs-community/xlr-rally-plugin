@@ -44,18 +44,10 @@ public class CreateUserStoryTest extends BaseTest {
         TemplateListPage.clickNewTemplate();
         taskDetailsPage = CreateTemplatePage.createTemplateByName("Rally Create User Story Template")
                 .addTask("Rally", "Rally", "Create User Story").selectItemByIndex(1, "Rally Config 3")
-                .typeStringByIndex(4, "Alligators BLD Unigrations").typeStringByIndex(5, "Manual Test 4");
-
-        this.addKeyValue("name", "testxlr");
-
-        taskDetailsPage.closeTaskDetails().newReleaseFromTemplate().createReleaseByName("Rally Release").startRelease()
+                .typeStringByIndex(4, "Alligators BLD Unigrations").typeStringByIndex(5, "Manual Test 4")
+                .addKeyValue("name", "testxlr").closeTaskDetails().newReleaseFromTemplate()
+                .createReleaseByName("Rally Release").startRelease()
                 .waitTillReleaseCompletes(25);
-    }
-
-    private void addKeyValue(String key, String value) {
-        BaseTest.driver.findElementByXPath("//table[@class='table']//tr//td[1]/input").sendKeys(key);
-        BaseTest.driver.findElementByXPath("//table[@class='table']//tr//td[2]/input").sendKeys(value);
-        BaseTest.driver.findElementByXPath("//table[@class='table']//tr//td[3]/div[1]/div[2]/button").click();
     }
 
     @AfterMethod
