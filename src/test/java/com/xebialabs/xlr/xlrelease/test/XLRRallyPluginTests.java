@@ -11,9 +11,13 @@ package com.xebialabs.xlr.xlrelease.test;
 
 import com.xebialabs.pages.*;
 import com.xebialabs.specs.BaseTest;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.*;
 
-public class LoginTest extends BaseTest {
+public class XLRRallyPluginTests extends BaseTest {
 
     @BeforeMethod
     public void testStartUp(){
@@ -30,12 +34,44 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
+    public void TestCreateUserStory(){
+        TaskDetailPage taskDetailsPage;
+        MainMenu.clickMenu("Settings");
+        SubMenu.clickSubMenu("Shared configuration");
+        SharedConfigurationPage.openSharedConfiguration("Rally: Server");
+        SharedConfigurationPropertiesPage.checkSharedConfigurationHeader("Rally");
+        SharedConfigurationPropertiesPage.setEditFieldBySequence(1, "Rally Config 1");
+        SharedConfigurationPropertiesPage.setEditFieldBySequence(2, "rally1.rallydev.com");
+        SharedConfigurationPropertiesPage.clickElementById("authenticationMethod"); // clicking the element so that
+        // select field will be visible on
+        // next step
+        SharedConfigurationPropertiesPage.setOptionFromSelectFieldBySequence(1, "Basic");
+        SharedConfigurationPropertiesPage.typeElementById("username", "yeti@rallydev.com");
+        SharedConfigurationPropertiesPage.typeElementById("password", "Vistabahn");
+        SharedConfigurationPropertiesPage.clickButtonByText("Test");
+        SharedConfigurationPropertiesPage.checkConnectionStatusShouldContain("Rally Server is available");
+        SharedConfigurationPropertiesPage.clickButtonByText("Save");
+        MainMenu.clickMenu("Design");
+        SubMenu.clickSubMenu("Templates");
+        TemplateListPage.clickNewTemplate();
+        taskDetailsPage = CreateTemplatePage.createTemplateByName("Rally Create User Story Template")
+            .addTask("Rally", "Rally", "Create User Story");
+        taskDetailsPage.selectItemByIndex(1, "Rally Config 1");
+        _type(4, "Alligators BLD Unigrations");
+        _type(5, "Manual Test 4");
+        taskDetailsPage
+            .addKeyValue("name", "testxlr").closeTaskDetails().newReleaseFromTemplate()
+            .createReleaseByName("Rally Release").startRelease()
+            .waitTillReleaseCompletes(25);
+    }
+
+    @Test
     public void SaveConfiguration(){
         MainMenu.clickMenu("Settings");
         SubMenu.clickSubMenu("Shared configuration");
         SharedConfigurationPage.openSharedConfiguration("Rally: Server");
         SharedConfigurationPropertiesPage.checkSharedConfigurationHeader("Rally");
-        SharedConfigurationPropertiesPage.setEditFieldBySequence(1,"Rally Config 1");
+        SharedConfigurationPropertiesPage.setEditFieldBySequence(1,"Rally Config 2");
         SharedConfigurationPropertiesPage.setEditFieldBySequence(2,"Rally url");
         SharedConfigurationPropertiesPage.clickButtonByText("Save");
         SharedConfigurationPropertiesPage.isNewConfigurationSaved().isSharedConfigurationPageVisible("Rally: Server");
@@ -47,7 +83,7 @@ public class LoginTest extends BaseTest {
         SubMenu.clickSubMenu("Shared configuration");
         SharedConfigurationPage.openSharedConfiguration("Rally: Server");
         SharedConfigurationPropertiesPage.checkSharedConfigurationHeader("Rally");
-        SharedConfigurationPropertiesPage.setEditFieldBySequence(1,"Rally Config 2");
+        SharedConfigurationPropertiesPage.setEditFieldBySequence(1,"Rally Config 3");
         SharedConfigurationPropertiesPage.setEditFieldBySequence(2,"Rally Url");
         SharedConfigurationPropertiesPage.clickElementById("authenticationMethod"); // clicking the element so that select field will be visible on next step
         SharedConfigurationPropertiesPage.setOptionFromSelectFieldBySequence(1,"None");
@@ -61,7 +97,7 @@ public class LoginTest extends BaseTest {
         SubMenu.clickSubMenu("Shared configuration");
         SharedConfigurationPage.openSharedConfiguration("Rally: Server");
         SharedConfigurationPropertiesPage.checkSharedConfigurationHeader("Rally");
-        SharedConfigurationPropertiesPage.setEditFieldBySequence(1,"Rally Config 3");
+        SharedConfigurationPropertiesPage.setEditFieldBySequence(1,"Rally Config 4");
         SharedConfigurationPropertiesPage.setEditFieldBySequence(2, "rally1.rallydev.com");
         SharedConfigurationPropertiesPage.clickElementById("authenticationMethod"); // clicking the element so that select field will be visible on next step
         SharedConfigurationPropertiesPage.setOptionFromSelectFieldBySequence(1,"Basic");
@@ -69,6 +105,19 @@ public class LoginTest extends BaseTest {
         SharedConfigurationPropertiesPage.typeElementById("password", "Vistabahn");
         SharedConfigurationPropertiesPage.clickButtonByText("Test");
         SharedConfigurationPropertiesPage.checkConnectionStatusShouldContain("Rally Server is available");
+    }
+
+    private void _type(Integer index, String text){
+        WebElement element = (WebElement)BaseTest.driver.findElementsByXPath("//div[@class='properties']//div[@class='display']").get(index.intValue());
+        Actions ob = new Actions(BaseTest.driver);
+        ob.click(element).build().perform();
+        BaseTest.driver.findElement(By.xpath("//label[@class='edit']//input")).clear();
+        BaseTest.driver.findElement(By.xpath("//label[@class='edit']//input")).sendKeys(new CharSequence[]{text});
+        clickSomewhereElse();
+    }
+
+    private void clickSomewhereElse(){
+        BaseTest.driver.findElementByXPath("//h4[contains(text(),'Input properties')]").click();
     }
 
     @AfterMethod
