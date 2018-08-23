@@ -42,7 +42,7 @@ public class CreateUserStoryTest extends BaseTest {
         MainMenu.clickMenu("Design");
         SubMenu.clickSubMenu("Templates");
         TemplateListPage.clickNewTemplate();
-        taskDetailsPage = CreateTemplatePage.createTemplateByName("Rally Create User Story Template")
+        CreateTemplatePage.createTemplateByName("Rally Create User Story Template")
                 .addTask("Rally", "Rally", "Create User Story").selectItemByIndex(1, "Rally Config 3")
                 .typeStringByIndex(4, "Alligators BLD Unigrations").typeStringByIndex(5, "Manual Test 4")
                 .addKeyValue("name", "testxlr").closeTaskDetails().newReleaseFromTemplate()
