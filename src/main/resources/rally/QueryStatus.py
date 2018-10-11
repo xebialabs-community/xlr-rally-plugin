@@ -7,21 +7,27 @@
 #
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
-version: "3"
-services:
-  xlr:
-    image: xebialabs/xl-release:8.1.0
-    container_name: xlr
-    volumes:
-      - ~/xl-licenses/xl-release-license.lic:/opt/xl-release-server/default-conf/xl-release-license.lic
-      - ./../../../../build/libs/${plugin_jar}:/opt/xl-release-server/default-plugins/__local__/${plugin_jar}
-    environment:
-      - ADMIN_PASSWORD=admin
-    ports:
-    - "5516:5516"
 
-  credentials:
-    image: xebialabsunsupported/xl-docker-demo-xlr-credentials-updater:latest
-    container_name: credentials_updater
-    links:
-      - xlr
+from rally.RallyClientUtil import RallyClientUtil
+
+if rallyServer is None:
+    print "No server provided."
+    sys.exit(1)
+
+rally_client = RallyClientUtil.create_rally_client(rallyServer, username, password, oAuthKey)
+
+rallyResult = rally_client.query(workspace, project, rally_type, query=query, fetch="True", rollupdata=True)
+if rallyResult.resultCount != 1:
+    raise Exception("Did not find 1 unique item")
+status = "OK"
+print "|  ID | Name | Status |"
+print "|-----|------|--------|"
+rows = {}
+for item in rallyResult:
+    print "| %s | %s | %s |" % (item.FormattedID, item.Name, item.ScheduleState)
+    rows[item.FormattedID] = "%s - %s" % (item.Name, item.ScheduleState)  if item.Name else "None"
+    if( item.ScheduleState != requiredState ):
+        status = "Fail"
+data = rows
+if( status == "Fail" ):
+    exit(-1)

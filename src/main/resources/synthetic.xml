@@ -106,18 +106,31 @@
         <property name="parent_rally_type" category="input" label="Parent Type" required="true"
                   description="Defect, Task, .."/>
         <property name="parent_formatted_id" category="input" label="Parent Formatted id" required="true"/>
-        
+
         <property name="rallyResult" category="output"/>
     </type>
 
     <type type="rally.GetStatus" extends="rally.BasicTask">
-        <property name="scriptLocation" default="rally/GetStatus.py" hidden="true"/>
+        <property name="scriptLocation" default="rally/QueryStatus.py" hidden="true"/>
 
         <property name="rally_type" category="input" label="Type" required="true"
                   description="Defect, Task, .."/>
         <property name="userStoryFormattedId" category="input" label="Formatted id" required="true"/>
 
         <property name="rallyResult" category="output"/>
+        <property name="status" category="output" label="Status" description="Item Status (Ready, Blocked or Undefined)" />
+    </type>
+
+    <type type="rally.QueryStatus" extends="rally.BasicTask">
+        <property name="scriptLocation" default="rally/QueryStatus.py" hidden="true"/>
+        <property name="workspace" category="input" label="Workspace Name" description="The name of the Workspace" kind="string" />
+        <property name="project" category="input" label="Project Name" description="The name of the Project" kind="string" />
+        <property name="itemType" category="input" label="Item Type" description="Choose from UserStory, Defect, Task, DefectSuite, TestCase or TestSet" />
+        <property name="rollupdata" category="input" label="Project Roll Up" description="Roll up all the items for the child project" kind="boolean" default="False"/>
+        <property name="query" category="input" required="false" size="large" description="Rally release cycle query eg. ((Name contains &quot;ABC&quot;) OR ((Priority = &quot;1-Critical&quot;) AND (Severity != &quot;3-Minor&quot;)))" />
+        <property name="requiredState" category="input" required="true" />
+
+        <property name="rallyResult" category="output" kind="map_string_string"/>
         <property name="status" category="output" label="Status" description="Item Status (Ready, Blocked or Undefined)" />
     </type>
 
@@ -131,7 +144,7 @@
                   default="include/RallyQueryTile/rally-query-details-view.html"/>
         <property name="title" description="Tile title" default="Rally Records"/>
         <property name="embedded" kind="boolean" hidden="true" default="true"
-                  required="false"/>  
+                  required="false"/>
         <property category="input" name="rallyServer" referenced-type="rally.Server" kind="ci" label="Server"
                   description="Rally server id to connect to"/>
         <property category="input" name="username" required="false"
@@ -139,10 +152,10 @@
         <property category="input" name="password" password="true" required="false"
                   description="Overrides the password used to connect to the server"/>
         <property name="oAuthKey" password="true" category="input" label="OAuth Key" required="false"/>
-        <property name="workspace" category="input" label="Workspace Name" description="The name of the Workspace" kind="string" />    
-        <property name="project" category="input" label="Project Name" description="The name of the Project" kind="string" />   
+        <property name="workspace" category="input" label="Workspace Name" description="The name of the Workspace" kind="string" />
+        <property name="project" category="input" label="Project Name" description="The name of the Project" kind="string" />
         <property name="itemType" category="input" label="Item Type" description="Choose from UserStory, Defect, Task, DefectSuite, TestCase or TestSet" />
-        <property name="rollupdata" category="input" label="Project Roll Up" description="Roll up all the items for the child project" kind="boolean" default="False"/>                   
+        <property name="rollupdata" category="input" label="Project Roll Up" description="Roll up all the items for the child project" kind="boolean" default="False"/>
         <property category="input" name="query" required="false" size="large" description="Rally release cycle query eg. ((Name contains &quot;ABC&quot;) OR ((Priority = &quot;1-Critical&quot;) AND (Severity != &quot;3-Minor&quot;)))" />
     </type>
 </synthetic>
