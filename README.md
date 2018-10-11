@@ -1,6 +1,6 @@
-# XL Release Rally plugin #
+# XL Release Rally plugin
 
-## Preface ##
+## Preface
 
 This document describes the functionality provided by the xlr-rally-plugin.
 
@@ -28,11 +28,11 @@ See the **[XL Release Documentation](https://docs.xebialabs.com/xl-release/index
 
 
 
-## Overview ##
+## Overview
 
 The xlr-rally-plugin is a XL Release plugin that allows to integrate XL Release with Rally.
 
-## Requirements ##
+## Requirements
 
 * **Requirements**
 	* **XL Release** 6.0+
@@ -41,12 +41,12 @@ The xlr-rally-plugin is a XL Release plugin that allows to integrate XL Release 
       However it will require some changes compared to 2.x (Different `URI` for the Shared Configuration and also requires to define the `project`)
     * Version 2.x is not backwards compatible with version 1.x. This means you'll have to reconfigure some tasks.
 
-## Installation ##
+## Installation
 
 * Place the plugin [JAR](https://github.com/xebialabs-community/xlr-rally-plugin/releases) file into your `SERVER_HOME/plugins` directory.
 * Restart the server  
 
-## Types ##
+## Types
 
 + CreateDefect
 + CreateTask
@@ -56,6 +56,7 @@ The xlr-rally-plugin is a XL Release plugin that allows to integrate XL Release 
 + UpdateScheduleState
 + UpdateParent
 + GetStatus
++ Query Status
 
 ## Usage ##
 
@@ -86,17 +87,22 @@ In the example above the Task TA3 has been updated with a new description and it
 * code: DS
 
 ##### Iteration #####
-* default state progression: Planning, Committed, Accepted 
+* default state progression: Planning, Committed, Accepted
 
 ##### Task #####
 * code: TA
 * default state progression: Defined, In-Progress, Completed
 
 ##### Test Case
-* code: TC 
+* code: TC
 
 ##### User Story #####
 * code: US
+
+### Query Status
+
+![QueryStatus](images/QueryStatus.png)
+
 
 ### Rally Tile ###
 This tile can be used to capture rally records based on a query
@@ -106,5 +112,3 @@ This tile can be used to capture rally records based on a query
 
 #### Tile Preview ####
 ![Configuration](images/rallyTile.jpg)
-
-
