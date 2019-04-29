@@ -111,7 +111,7 @@
     </type>
 
     <type type="rally.GetStatus" extends="rally.BasicTask">
-        <property name="scriptLocation" default="rally/QueryStatus.py" hidden="true"/>
+        <property name="scriptLocation" default="rally/GetStatus.py" hidden="true"/>
 
         <property name="rally_type" category="input" label="Type" required="true"
                   description="Defect, Task, .."/>
