@@ -26,5 +26,5 @@ deploy:
     repo: xebialabs-community/xlr-rally-plugin
 env:
   global:
-  - secure: TwlXD1tH+593Xsz8FGAD4bCjznew9of0yUhk/uPtMu2w9C1jgSbSwEJLe9ioljgDeHyAZA0sLSyO1xCpdDvAF+7SwRQ6wuWjapAdUw1YvTvHcVRVXSRhmXaNiCP2RyEQ1EWFFQmn78UEsSXsuyzdleuuydiX4VTz/98emFuJl0M=
-  - secure: i/MFSmlZYoFCv3IW4L64qvdQgAfACC0RUo/RiBAdiudkD0NwUSH4A2hN4ziBPwukhGpMoaw7lorDyjFxUFE9zab+yx3likbwE13U/e7VVJm6tHrDdMS3nHRwr1708tab4PgW+MFm2tb4uaIocq/9n62T+8b0XET4QJXznz1sF3k=
+  - secure: Asv1D6XwN3F0Gww5GHOgX3uQ7vTbEPECJ4bh2xSgVG+BzXt0VG0dKSmrqHafB6jdJ1BzOSmXaPnulhSoYPR71hJdMsY2gQXYiEOe0TEUXaCEgM+++QyV4f4oR7tPZdBgra6znc1Q5GXpOMlBT9ACaAlF5syWsYR3KqNqUjhsQyQ=
+  - secure: dwPcRgiBS0gTZ6o0pC3gcMzSyOdeewhrb9qH7Qo3jZVdjoV1FKwavl2JAof/OH7RdKWMxAblYKj1bD9L/7MAwzYMB0wy1+xSShJ5R6nLlQ8NMUFMyHARtJZs50UpnTxdtY+ZnDXMWqCjSYOxuWbacZhKGRiHPm8zcblfiPjCUJg=
