@@ -17,7 +17,7 @@ See the **[XL Release Documentation](https://docs.xebialabs.com/xl-release/index
 [xlr-rally-travis-image]: https://travis-ci.org/xebialabs-community/xlr-rally-plugin.svg?branch=master
 [xlr-rally-travis-url]: https://travis-ci.org/xebialabs-community/xlr-rally-plugin
 [xlr-rally-codacy-image]: https://api.codacy.com/project/badge/Grade/b74aca3c5da7483193ceef88bc93ec44
-[xlr-rally-codacy-url]: https://www.codacy.com/app/rvanstone/xlr-rally-plugin
+[xlr-rally-codacy-url]: https://www.codacy.com/app/xebialabs-community/xlr-rally-plugin
 [xlr-rally-code-climate-image]: https://codeclimate.com/github/xebialabs-community/xlr-rally-plugin/badges/gpa.svg
 [xlr-rally-code-climate-url]: https://codeclimate.com/github/xebialabs-community/xlr-rally-plugin
 [xlr-rally-plugin-license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
