@@ -10,9 +10,8 @@ addons:
 script:
 - "./travis-ci.sh"
 notifications:
-  hipchat:
-    rooms:
-      secure: heRjw4ntplj7zbOUC/C3TTtJuvtbXHyvi3KMrKt49zW2FSBZyBGBfDyWdqaOCBIZYb6K0Mk3ryp2BxMwGF2ST5sSX2Vi8D4ms14g6FSf2rwED1ijbI2ZEhy/E8iY+g8MOYkoMW/7MXgUr9lWL/k4mPepnTdbGuYhdyOt7A5mWe4=
+  slack:
+    secure: DHrFlEKjTMDKKdTb1zHkLgFJdJTIh7qIwMS6fXOS3oG4JDbiYmXu6PUg7ZBRXkpsrSfJ2PdyraZ4zElrVa+85W2b3ireF0ro1NhvsdB9SJZC193MnlK5BM740tH3antCpr7ie/WtELUe9+/v4Xz3ntYgoHVx+93jv+H6/kgf3+s=
 deploy:
   provider: releases
   api_key:
