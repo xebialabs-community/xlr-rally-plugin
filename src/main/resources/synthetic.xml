@@ -21,7 +21,7 @@
         <property name="rallyServer" category="input" label="Server" referenced-type="rally.Server" kind="ci"/>
         <property name="username" category="input" label="username" required="false"/>
         <property name="password" password="true" category="input" required="false"/>
-        <property name="oAuthKey" password="true" category="input" label="OAuth Key" required="false"/>
+        <property name="oAuthKey" password="true" category="input" label="OAuth Key or API Key" required="false"/>
 
         <property name="workspace" category="input" label="Workspace" required="true"/>
         <property name="project" category="input" label="Project" required="true"/>
