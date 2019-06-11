@@ -15,13 +15,19 @@ services:
     volumes:
       - ~/xl-licenses/xl-release-license.lic:/opt/xl-release-server/default-conf/xl-release-license.lic
       - ./../../../../build/libs/${plugin_jar}:/opt/xl-release-server/default-plugins/__local__/${plugin_jar}
+      - ./../../../../src/main/resources/rally/:/opt/xl-release-server/ext/rally/
+      - ./../../../../src/main/resources/web/:/opt/xl-release-server/ext/web/
     environment:
       - ADMIN_PASSWORD=admin
     ports:
     - "5516:5516"
 
-  credentials:
+  credentials_updater:
     image: xebialabsunsupported/xl-docker-demo-xlr-credentials-updater:latest
     container_name: credentials_updater
+    volumes:
+      # currently petportal is hardcoded in the credentials updater sh, so mount rally credentials as such
+      - ~/keys/rally-credentials.conf:/keys/petportal-credentials.conf
+      - ./credentials_updater.py:/credentials_updater.py
     links:
       - xlr
