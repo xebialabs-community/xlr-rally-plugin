@@ -7,3 +7,4 @@ bin
 build
 supervisord.*
 xlr-rally-plugin.iml
+.vscode
