@@ -35,7 +35,7 @@ The xlr-rally-plugin is a XL Release plugin that allows to integrate XL Release 
 ## Requirements
 
 * **Requirements**
-	* **XL Release** 6.0+
+	* **XL Release** 8.0+
 * **Remark**
     * Version 3.x is based on [pyral](http://pythonhosted.org/pyral/overview.html). As such it doesn't require any additional jars.
       However it will require some changes compared to 2.x (Different `URI` for the Shared Configuration and also requires to define the `project`)
@@ -46,7 +46,7 @@ The xlr-rally-plugin is a XL Release plugin that allows to integrate XL Release 
 * Place the plugin [JAR](https://github.com/xebialabs-community/xlr-rally-plugin/releases) file into your `SERVER_HOME/plugins` directory.
 * Restart the server  
 
-## Types
+## Task Types
 
 + CreateDefect
 + CreateTask
@@ -58,7 +58,7 @@ The xlr-rally-plugin is a XL Release plugin that allows to integrate XL Release 
 + GetStatus
 + Query Status
 
-## Usage ##
+## Configuration ##
 
 First, you need to add an entry in the [Configuration](https://docs.xebialabs.com/xl-release/how-to/create-custom-configuration-types-in-xl-release.html#configuration-page) section with information on how to connect to your Rally instance:
 
@@ -66,19 +66,28 @@ First, you need to add an entry in the [Configuration](https://docs.xebialabs.co
 
 For `URI`, make sure to use something like `rally1.rallydev.com` (without `http` or `https`)
 
-The next step is to add the required task [Types](#Types) to your release template, for example:
+## Usage ##
+
+The next step is to add the whatever Rally task(s) you need in your release template (see above Task Types). For example:
 
 ![Configuration](images/updateProperties.png)
 
-Note, properties are defined in the following format
+### Properties ###
 
-`{ "property1Name" : "property1Value","property2Name" : "property2Value" }`
+Properties depend on the object you're creating or updating.  Each object type has it's own set of properties.  Note, properties are defined in the following format:
+
+`{ "State":"In-Progress", "Description":"My Description" }`
+
+The 'key' ("State" in this example) is the name of the property.  The 'value' ("In-Progress" here) is the desired value.  Multiple key-value pairs are separated by commas.  Check the Rally Object Model reference available in the Rally Help menu for more information.
 
 In the example above the Task TA3 has been updated with a new description and it's state has been progressed.
 
 ![Execution](images/rallyResult.png)
 
 ### Rally object reference ###
+
+When you see a reference to 'Formatted Id', this is the Rally object ID prefixed with the object type.  Below are common Rally object types and their associated code.  To create a 'Formatted Id', enter \<code\>+\<the id number\>.  For example, a User Story Id might be 'US12345'.
+
 ##### Defect #####
 * code: DE
 * default state progression: Submitted, Open, Fixed, Closed
@@ -99,10 +108,9 @@ In the example above the Task TA3 has been updated with a new description and it
 ##### User Story #####
 * code: US
 
-### Query Status
+### Query Status ###
 
 ![QueryStatus](images/QueryStatus.png)
-
 
 ### Rally Tile ###
 This tile can be used to capture rally records based on a query
