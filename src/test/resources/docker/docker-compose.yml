@@ -10,7 +10,7 @@
 version: "3"
 services:
   xlr:
-    image: xebialabs/xl-release:9.7
+    image: xebialabs/xl-release:8.6
     container_name: xlr
     volumes:
 #      - ~/xl-licenses/xl-release-license.lic:/opt/xl-release-server/default-conf/xl-release-license.lic
