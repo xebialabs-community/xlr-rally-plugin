@@ -125,7 +125,7 @@
         <property name="scriptLocation" default="rally/QueryStatus.py" hidden="true"/>
         <property name="workspace" category="input" label="Workspace Name" description="The name of the Workspace" kind="string" />
         <property name="project" category="input" label="Project Name" description="The name of the Project" kind="string" />
-        <property name="itemType" category="input" label="Item Type" description="Choose from UserStory, Defect, Task, DefectSuite, TestCase or TestSet" />
+        <property name="rally_type" category="input" label="Item Type" description="Choose from UserStory, Defect, Task, DefectSuite, TestCase or TestSet" />
         <property name="rollupdata" category="input" label="Project Roll Up" description="Roll up all the items for the child project" kind="boolean" default="False"/>
         <property name="query" category="input" required="false" size="large" description="Rally release cycle query eg. ((Name contains &quot;ABC&quot;) OR ((Priority = &quot;1-Critical&quot;) AND (Severity != &quot;3-Minor&quot;)))" />
         <property name="requiredState" category="input" required="true" />

@@ -17,8 +17,7 @@ if rallyServer is None:
 rally_client = RallyClientUtil.create_rally_client(rallyServer, username, password, oAuthKey)
 
 rallyResult = rally_client.query(workspace, project, rally_type, query=query, fetch="True", rollupdata=True)
-if rallyResult.resultCount != 1:
-    raise Exception("Did not find 1 unique item")
+
 status = "OK"
 print "|  ID | Name | Status |"
 print "|-----|------|--------|"
