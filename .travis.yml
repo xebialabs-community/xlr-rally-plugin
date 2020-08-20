@@ -9,8 +9,8 @@ addons:
     packages:
     - httpie
     - jq
-script:
-- "./travis-ci.sh"
+#script:
+#- "./travis-ci.sh"
 notifications:
   slack:
     secure: DHrFlEKjTMDKKdTb1zHkLgFJdJTIh7qIwMS6fXOS3oG4JDbiYmXu6PUg7ZBRXkpsrSfJ2PdyraZ4zElrVa+85W2b3ireF0ro1NhvsdB9SJZC193MnlK5BM740tH3antCpr7ie/WtELUe9+/v4Xz3ntYgoHVx+93jv+H6/kgf3+s=
