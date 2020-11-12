@@ -9,6 +9,7 @@
 #
 
 from rally.RallyClientUtil import RallyClientUtil
+import logging
 
 if rallyServer is None:
     print "No server provided."
@@ -16,17 +17,27 @@ if rallyServer is None:
 
 rally_client = RallyClientUtil.create_rally_client(rallyServer, username, password, oAuthKey)
 
-rallyResult = rally_client.query(workspace, project, rally_type, query=query, fetch="True", rollupdata=True)
+rallyResponse = rally_client.query(workspace, project, rally_type, query=query, fetch="True", rollupdata=True)
+logging.debug("Query Status - rallyResponse =  %s" % rallyResponse)
+logging.debug("Query Status - rallyResponse.content =  %s" % rallyResponse.content)
 
 status = "OK"
-print "|  ID | Name | Status |"
-print "|-----|------|--------|"
+print ("|  ID | Name | Status |")
+print ("|-----|-----------|-------------|")
 rows = {}
-for item in rallyResult:
-    print "| %s | %s | %s |" % (item.FormattedID, item.Name, item.ScheduleState)
-    rows[item.FormattedID] = "%s - %s" % (item.Name, item.ScheduleState)  if item.Name else "None"
-    if( item.ScheduleState != requiredState ):
-        status = "Fail"
-data = rows
+for item in rallyResponse:
+    if rally_type == "Task":
+        theState = item.State
+    else:
+        theState = item.ScheduleState
+
+    print ("| %s | %s | %s |" % (item.FormattedID, item.Name, theState))
+    rows[item.FormattedID] = "%s - %s" % (item.Name, theState)  if item.Name else "None"
+    # Changed this to run the test only if requiredState has been set
+    #       requiredState is no longer a required field
+    if requiredState is not None:
+        if( theState != requiredState ):
+            status = "Fail"
+rallyResult = rows
 if( status == "Fail" ):
     exit(-1)

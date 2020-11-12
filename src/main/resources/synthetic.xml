@@ -123,7 +123,7 @@
         <property name="rally_type" category="input" label="Item Type" description="Choose from UserStory, Defect, Task, DefectSuite, TestCase or TestSet" />
         <property name="rollupdata" category="input" label="Project Roll Up" description="Roll up all the items for the child project" kind="boolean" default="False"/>
         <property name="query" category="input" required="false" size="large" description="Rally release cycle query eg. ((Name contains &quot;ABC&quot;) OR ((Priority = &quot;1-Critical&quot;) AND (Severity != &quot;3-Minor&quot;)))" />
-        <property name="requiredState" category="input" required="true" />
+        <property name="requiredState" category="input" description="If a value is entered here, the Status output value is set to 'Fail' if any State or ScheduledState of any returned object does not equal the 'Required State'." required="false" />
 
         <property name="rallyResult" category="output" kind="map_string_string"/>
         <property name="status" category="output" label="Status" description="Item Status (Ready, Blocked or Undefined)" />
@@ -134,6 +134,7 @@
     </type>
 
     <type type="rally.QueryTile" label="Rally query tile" extends="xlrelease.Tile">
+        <property default="release,folder,global" hidden="true" name="supportedScopes" kind="list_of_string"/>
         <property name="uri" hidden="true" default="include/RallyQueryTile/rally-query-summary-view.html"/>
         <property name="detailsUri" hidden="true"
                   default="include/RallyQueryTile/rally-query-details-view.html"/>

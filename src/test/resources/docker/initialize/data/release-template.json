@@ -1,0 +1,198 @@
+[{
+  "id": "Applications/Releasef2c018f578984b52bd51398f89bafc60",
+  "type": "xlrelease.Release",
+  "title": "Rally Test Template",
+  "scheduledStartDate": "2020-11-07T15:00:00Z",
+  "flagStatus": "OK",
+  "overdueNotified": false,
+  "maxConcurrentReleases": 100,
+  "releaseTriggers": [],
+  "teams": [
+    {
+      "id": "Applications/Releasef2c018f578984b52bd51398f89bafc60/Team3dbdb9c28684461695232b8385cab3bd",
+      "type": "xlrelease.Team",
+      "teamName": "Template Owner",
+      "members": [
+        "admin"
+      ],
+      "roles": [],
+      "permissions": [
+        "template#edit",
+        "template#lock_task",
+        "template#view",
+        "template#edit_precondition",
+        "template#edit_security",
+        "template#create_release",
+        "template#edit_failure_handler",
+        "trigger#edit_trigger"
+      ]
+    },
+    {
+      "id": "Applications/Releasef2c018f578984b52bd51398f89bafc60/Team8f0a193fbd08412ebb26f8b0a19159e3",
+      "type": "xlrelease.Team",
+      "teamName": "Release Admin",
+      "members": [],
+      "roles": [],
+      "permissions": [
+        "release#edit_precondition",
+        "release#edit",
+        "release#task_transition",
+        "release#edit_task_attachments",
+        "trigger#view_trigger",
+        "release#reassign_task",
+        "release#edit_task_input_output_properties",
+        "release#edit_task_tags",
+        "release#edit_security",
+        "release#edit_task_description",
+        "trigger#edit_trigger",
+        "release#view",
+        "release#lock_task",
+        "release#start",
+        "release#edit_blackout",
+        "template#view",
+        "release#edit_failure_handler",
+        "release#abort",
+        "release#edit_task_script",
+        "release#edit_task_configuration_facet",
+        "release#edit_task_flag",
+        "release#edit_task_dates",
+        "release#edit_task"
+      ]
+    }
+  ],
+  "memberViewers": [
+    "admin"
+  ],
+  "roleViewers": [],
+  "attachments": [],
+  "phases": [
+    {
+      "id": "Applications/Releasef2c018f578984b52bd51398f89bafc60/Phaseff5745198c664304a0f6601ea35d7a4a",
+      "type": "xlrelease.Phase",
+      "title": "New Phase",
+      "flagStatus": "OK",
+      "overdueNotified": false,
+      "tasks": [
+        {
+          "id": "Applications/Releasef2c018f578984b52bd51398f89bafc60/Phaseff5745198c664304a0f6601ea35d7a4a/Task7f6a80c18dd94e1c8f4b957f2f2bc60a",
+          "type": "xlrelease.CustomScriptTask",
+          "title": "Query Status",
+          "flagStatus": "OK",
+          "overdueNotified": false,
+          "comments": [],
+          "container": "Applications/Releasef2c018f578984b52bd51398f89bafc60/Phaseff5745198c664304a0f6601ea35d7a4a",
+          "facets": [],
+          "attachments": [],
+          "status": "PLANNED",
+          "watchers": [],
+          "waitForScheduledStartDate": true,
+          "delayDuringBlackout": false,
+          "postponedDueToBlackout": false,
+          "hasBeenFlagged": false,
+          "hasBeenDelayed": false,
+          "taskFailureHandlerEnabled": false,
+          "failuresCount": 0,
+          "variableMapping": {},
+          "externalVariableMapping": {},
+          "tags": [],
+          "dueSoonNotified": false,
+          "locked": false,
+          "checkAttributes": false,
+          "pythonScript": {
+            "id": "Applications/Releasef2c018f578984b52bd51398f89bafc60/Phaseff5745198c664304a0f6601ea35d7a4a/Task7f6a80c18dd94e1c8f4b957f2f2bc60a/PythonScript",
+            "type": "rally.QueryStatus",
+            "customScriptTask": "Applications/Releasef2c018f578984b52bd51398f89bafc60/Phaseff5745198c664304a0f6601ea35d7a4a/Task7f6a80c18dd94e1c8f4b957f2f2bc60a",
+            "rallyServer": "Configuration/Custom/rally",
+            "workspace": "Alligators BLD Unigrations",
+            "project": "Dynamic",
+            "rally_type": "Task",
+            "rollupdata": false,
+            "rallyResult": {}
+          },
+          "keepPreviousOutputPropertiesOnRetry": false
+        },
+        {
+          "id": "Applications/Releasef2c018f578984b52bd51398f89bafc60/Phaseff5745198c664304a0f6601ea35d7a4a/Task95e6b5fe894e4d51bee71bc101a15348",
+          "type": "xlrelease.CustomScriptTask",
+          "title": "Create User Story",
+          "flagStatus": "OK",
+          "overdueNotified": false,
+          "comments": [],
+          "container": "Applications/Releasef2c018f578984b52bd51398f89bafc60/Phaseff5745198c664304a0f6601ea35d7a4a",
+          "facets": [],
+          "attachments": [],
+          "status": "PLANNED",
+          "watchers": [],
+          "waitForScheduledStartDate": true,
+          "delayDuringBlackout": false,
+          "postponedDueToBlackout": false,
+          "hasBeenFlagged": false,
+          "hasBeenDelayed": false,
+          "taskFailureHandlerEnabled": false,
+          "failuresCount": 0,
+          "variableMapping": {
+            "pythonScript.formattedId": "${userStoryFormattedId}",
+            "pythonScript.rallyResult": "${userStoryResult}"
+          },
+          "externalVariableMapping": {},
+          "tags": [],
+          "dueSoonNotified": false,
+          "locked": false,
+          "checkAttributes": false,
+          "pythonScript": {
+            "id": "Applications/Releasef2c018f578984b52bd51398f89bafc60/Phaseff5745198c664304a0f6601ea35d7a4a/Task95e6b5fe894e4d51bee71bc101a15348/PythonScript",
+            "type": "rally.CreateUserStory",
+            "customScriptTask": "Applications/Releasef2c018f578984b52bd51398f89bafc60/Phaseff5745198c664304a0f6601ea35d7a4a/Task95e6b5fe894e4d51bee71bc101a15348",
+            "rallyServer": "Configuration/Custom/rally",
+            "workspace": "Alligators BLD Unigrations",
+            "project": "Dynamic",
+            "properties": {
+              "Description": "This is a new story",
+              "Name": "Test Story 1"
+            }
+          },
+          "keepPreviousOutputPropertiesOnRetry": false
+        }
+      ],
+      "release": "Applications/Releasef2c018f578984b52bd51398f89bafc60",
+      "status": "PLANNED"
+    }
+  ],
+  "queryableStartDate": "2020-11-07T15:00:00Z",
+  "realFlagStatus": "OK",
+  "status": "TEMPLATE",
+  "tags": [],
+  "variables": [
+    {
+      "id": "Applications/Releasef2c018f578984b52bd51398f89bafc60/Variablecc01adee9a254d04829b84e362af5b39",
+      "type": "xlrelease.StringVariable",
+      "key": "userStoryResult",
+      "requiresValue": false,
+      "showOnReleaseStart": false,
+      "inherited": false,
+      "multiline": false
+    },
+    {
+      "id": "Applications/Releasef2c018f578984b52bd51398f89bafc60/Variable8ad73992a48242019c8102407480f240",
+      "type": "xlrelease.StringVariable",
+      "key": "userStoryFormattedId",
+      "requiresValue": false,
+      "showOnReleaseStart": false,
+      "inherited": false,
+      "multiline": false
+    }
+  ],
+  "calendarPublished": false,
+  "tutorial": false,
+  "abortOnFailure": false,
+  "allowPasswordsInAllFields": false,
+  "allowConcurrentReleasesFromTrigger": true,
+  "runningTriggeredReleasesCount": 0,
+  "createdFromTrigger": false,
+  "extensions": [],
+  "autoStart": false,
+  "automatedResumeCount": 0,
+  "riskProfile": "Configuration/riskProfiles/Default risk profile",
+  "riskScore": "000",
+  "totalRiskScore": "0000"
+}]

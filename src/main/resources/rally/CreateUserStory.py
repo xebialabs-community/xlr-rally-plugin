@@ -8,6 +8,7 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+import logging
 from rally.RallyClientUtil import RallyClientUtil
 
 if rallyServer is None:
@@ -18,5 +19,7 @@ if properties is None:
     print "No properties provided."
     sys.exit(1)
 
+logging.debug("In CreateUserStory, about to create client")
 rally_client = RallyClientUtil.create_rally_client(rallyServer, username, password, oAuthKey)
+logging.debug("Client creation succeeded, retrieving formattedId")
 formattedId = rally_client.create_item(workspace, project, properties, "UserStory")

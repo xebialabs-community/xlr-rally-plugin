@@ -10,6 +10,7 @@
 
 import ast
 import os
+import logging
 from pyral import Rally
 from xlrelease.CredentialsFallback import CredentialsFallback
 from java.net import URI
@@ -81,8 +82,9 @@ class RallyClient(object):
         self.rest_api.setWorkspace(workspace)
         self.rest_api.setProject(project)
 
+        logging.debug("About to create item in rally")
         item_create_response = self.rest_api.put(item_type, properties)
-
+        logging.debug("Create Item response: %s" % (item_create_response.details()))
         print "Executed successful on Rally"
         return item_create_response.FormattedID
 

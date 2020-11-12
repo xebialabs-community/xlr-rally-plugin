@@ -13,11 +13,19 @@ SCRIPT=$(readlink -f "$0")
 # Absolute path this script is in, thus /home/user/bin
 SCRIPTPATH=$(dirname "$SCRIPT")
 
-####################### XLD server data
+####################### Rally server data
 
 
 wget --http-user=admin --http-password=admin --auth-no-challenge \
      --header="Accept: application/json" \
      --header="Content-type: application/json" \
      --post-file=$SCRIPTPATH/data/server-configs.json \
-    http://localhost:5516/repository/cis -O /dev/null
+    http://localhost:15516/api/v1/config -O /dev/null
+
+####################### Template data
+
+wget --http-user=admin --http-password=admin --auth-no-challenge \
+     --header="Accept: application/json" \
+     --header="Content-type: application/json" \
+     --post-file=$SCRIPTPATH/data/release-template.json \
+     http://localhost:15516/api/v1/templates/import -O /dev/null
