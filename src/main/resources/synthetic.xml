@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
 
-    Copyright 2020 XEBIALABS
+    Copyright 2021 XEBIALABS
 
     Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -123,7 +123,9 @@
         <property name="rally_type" category="input" label="Item Type" description="Choose from UserStory, Defect, Task, DefectSuite, TestCase or TestSet" />
         <property name="rollupdata" category="input" label="Project Roll Up" description="Roll up all the items for the child project" kind="boolean" default="False"/>
         <property name="query" category="input" required="false" size="large" description="Rally release cycle query eg. ((Name contains &quot;ABC&quot;) OR ((Priority = &quot;1-Critical&quot;) AND (Severity != &quot;3-Minor&quot;)))" />
-        <property name="requiredState" category="input" description="If a value is entered here, the Status output value is set to 'Fail' if any State or ScheduledState of any returned object does not equal the 'Required State'." required="false" />
+
+        <property name="filterState" category="input" required="false" kind="list_of_string" description="If one or more values are entered here, only those items a matching state will be included in the output." />
+        <property name="requiredState" category="input" required="false" description="If a value is entered here, the Status output value is set to 'Fail' if any State or ScheduledState of any returned object does not equal the 'Required State'." />
 
         <property name="rallyResult" category="output" kind="map_string_string"/>
         <property name="status" category="output" label="Status" description="Item Status (Ready, Blocked or Undefined)" />

@@ -1,5 +1,5 @@
 #
-# Copyright 2020 XEBIALABS
+# Copyright 2021 XEBIALABS
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 #
@@ -32,12 +32,24 @@ for item in rallyResponse:
         theState = item.ScheduleState
 
     print ("| %s | %s | %s |" % (item.FormattedID, item.Name, theState))
-    rows[item.FormattedID] = "%s - %s" % (item.Name, theState)  if item.Name else "None"
+
+    # optionally filter the output
+    includeInOutput = False
+    if filterState is not None:
+        if theState in filterState:
+            includeInOutput = True
+    else:
+        includeInOutput = True
+
+    if includeInOutput == True:
+        rows[item.FormattedID] = "%s - %s" % (item.Name, theState)  if item.Name else "None"
+
     # Changed this to run the test only if requiredState has been set
     #       requiredState is no longer a required field
     if requiredState is not None:
         if( theState != requiredState ):
             status = "Fail"
+
 rallyResult = rows
 if( status == "Fail" ):
     exit(-1)
