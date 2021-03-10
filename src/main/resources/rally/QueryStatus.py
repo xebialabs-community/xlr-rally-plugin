@@ -15,9 +15,13 @@ if rallyServer is None:
     print "No server provided."
     sys.exit(1)
 
-rally_client = RallyClientUtil.create_rally_client(rallyServer, username, password, oAuthKey)
+rally_client = RallyClientUtil.create_rally_client(
+    rallyServer, username, password, oAuthKey
+)
 
-rallyResponse = rally_client.query(workspace, project, rally_type, query=query, fetch="True", rollupdata=True)
+rallyResponse = rally_client.query(
+    workspace, project, rally_type, query=query, fetch="True", rollupdata=True
+)
 logging.debug("Query Status - rallyResponse =  %s" % rallyResponse)
 logging.debug("Query Status - rallyResponse.content =  %s" % rallyResponse.content)
 
@@ -42,14 +46,21 @@ for item in rallyResponse:
         includeInOutput = True
 
     if includeInOutput == True:
-        rows[item.FormattedID] = "%s - %s" % (item.Name, theState)  if item.Name else "None"
+        rows[item.FormattedID] = (
+            "%s - %s" % (item.Name, theState) if item.Name else "None"
+        )
 
     # Changed this to run the test only if requiredState has been set
     #       requiredState is no longer a required field
-    if requiredState is not None:
-        if( theState != requiredState ):
+    if requiredState is not None and len(requiredState) > 0:
+        logging.debug(
+            'Testing current state "%s" against required state "%s"'
+            % (theState, requiredState)
+        )
+        if theState != requiredState:
+            logging.debug("...failed match")
             status = "Fail"
 
 rallyResult = rows
-if( status == "Fail" ):
+if status == "Fail":
     exit(-1)
