@@ -26,6 +26,8 @@ repositories {
   }
 }
 
+version = "3.12.0"
+
 
 dependencies {
   jython ":pyral:1.4.2"
